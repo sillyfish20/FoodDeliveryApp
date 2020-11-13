@@ -13,23 +13,17 @@ public class Vendor {
         this.monthlyFee = monthlyFee;
     }
 
-    public String getAddress() {
-        return address;
+    public int getVendorID() {
+        return vendorId;
     }
 
-    public String getCity() {
-        return city;
+    public String getVendorName() {
+        return vendorName;
     }
 
-    public int getId() {
-        return id;
+    public String getPaymentInfo() {
+        return paymentInfo;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
+    public int getMonthlyFee() { return monthlyFee; }
 }

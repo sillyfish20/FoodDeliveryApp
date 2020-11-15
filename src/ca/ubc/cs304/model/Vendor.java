@@ -21,9 +21,7 @@ public class Vendor {
         return vendorName;
     }
 
-    public String getPaymentInfo() {
-        return paymentInfo;
-    }
+    public String getPaymentInfo() { return paymentInfo; }
 
     public int getMonthlyFee() { return monthlyFee; }
 }

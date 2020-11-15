@@ -7,6 +7,8 @@ import ca.ubc.cs304.model.BranchModel;
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.TerminalTransactions;
 
+import java.sql.Connection;
+
 /**
  * This is the main controller class that will orchestrate everything.
  */
@@ -34,7 +36,10 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 		if (didConnect) {
 			// Once connected, remove login window and start text transaction flow
 			loginWindow.dispose();
-
+			// TODO: initiate the database transaction and GUI
+			// get the connection value, and pass it into DatabaseTransactions and TableModels
+			Connection conn = dbHandler.getConnection();
+			// TODO: not sure if we need the TerminalTransactions anymore
 			TerminalTransactions transaction = new TerminalTransactions();
 			transaction.setupDatabase(this);
 			transaction.showMainMenu(this);
@@ -50,7 +55,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	}
 	
 	/**
-	 * TermainalTransactionsDelegate Implementation
+	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Insert a branch with the given info
 	 */

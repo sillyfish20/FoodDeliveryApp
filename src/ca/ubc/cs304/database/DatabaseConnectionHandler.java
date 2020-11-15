@@ -158,6 +158,11 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// returns the connection
+	public Connection getConnection() {
+		return this.connection;
+	}
+
 	private void rollbackConnection() {
 		try  {
 			connection.rollback();	

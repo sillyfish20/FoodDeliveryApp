@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class DatabaseUI extends JFrame implements ActionListener, ItemListener {
     private static final int TEXT_FIELD_WIDTH = 20;
@@ -14,15 +15,17 @@ public class DatabaseUI extends JFrame implements ActionListener, ItemListener {
     public DatabaseUI() {
         super("Food Delivery App");
         this.container = new JPanel();
+        container.setPreferredSize(new Dimension(500, 500));
     }
 
     public void showFrame(DatabaseTransactions dbTransactions) {
         this.dbTransactions = dbTransactions;
         // INSERT //
         JPanel insertPanel = new JPanel();
-        insertPanel.setBorder(BorderFactory.createTitledBorder("Insert into a table"));
-        insertPanel.setLayout(new GridLayout(4, 2, 1, 1));
-        JLabel insertTableLabel = new JLabel("Select Table: ", SwingConstants.LEFT);
+        insertPanel.setLayout(new BoxLayout(insertPanel, BoxLayout.PAGE_AXIS));
+        insertPanel.setPreferredSize(new Dimension(400, 300));
+        insertPanel.setBorder(BorderFactory.createTitledBorder("Insert tuple into Table"));
+        JLabel insertTableLabel = new JLabel("Select Table: ");
         String[] tables = {"", "Customer", "Vendor", "Drivers"};
         JComboBox tableDropDown = new JComboBox(tables);
         JPanel attrPanel = new JPanel();
@@ -31,8 +34,6 @@ public class DatabaseUI extends JFrame implements ActionListener, ItemListener {
         tableDropDown.addItemListener(insertTableItemListener);
         InsertActionListener insertActionListener = new InsertActionListener(this);
         insertButton.addActionListener(insertActionListener);
-
-        insertPanel.setPreferredSize(new Dimension(200, 200));
         insertPanel.add(insertTableLabel);
         insertPanel.add(tableDropDown);
         insertPanel.add(attrPanel);
@@ -44,7 +45,7 @@ public class DatabaseUI extends JFrame implements ActionListener, ItemListener {
 
         // DELETE
 
-        this.add(container, BorderLayout.CENTER);
+        this.add(container);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);

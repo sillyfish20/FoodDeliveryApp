@@ -1,0 +1,6 @@
+# Don't track the content of these folders
+bin/
+
+# Compiled source #
+###################
+*.class

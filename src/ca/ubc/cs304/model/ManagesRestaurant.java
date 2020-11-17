@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.sql.Date;
 
-public class ManagesRestaurant {
+public class ManagesRestaurant extends AbstractTable {
     private final int restaurantID;
     private final int vendorID;
     private final String rName;

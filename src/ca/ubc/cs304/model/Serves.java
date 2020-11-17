@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class Serves {
+public class Serves extends AbstractTable {
     private final int restaurantID;
     private final int foodID;
 

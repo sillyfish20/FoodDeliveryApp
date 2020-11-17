@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class RequestsAddress {
+public class RequestsAddress extends AbstractTable {
     private final String houseNum;
     private final String postalCode;
     private final int customerID;

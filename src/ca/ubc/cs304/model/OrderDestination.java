@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class OrderDestination {
+public class OrderDestination extends AbstractTable {
     private final int orderId;
     private final String houseNum;
     private final String postalCode;

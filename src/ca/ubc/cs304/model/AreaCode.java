@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class AreaCode {
+public class AreaCode extends AbstractTable {
     private final String postalCode;
     private final String city;
     private final String province;

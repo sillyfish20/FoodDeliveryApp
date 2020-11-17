@@ -1,153 +1,40 @@
 package ca.ubc.cs304.ui;
 
-import ca.ubc.cs304.delegates.TerminalTransactionsDelegate;
-import ca.ubc.cs304.model.BranchModel;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import ca.ubc.cs304.database.DatabaseConnectionHandler;
+import ca.ubc.cs304.model.AbstractTable;
 
 public class DatabaseTransactions {
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
     private static final int INVALID_INPUT = Integer.MIN_VALUE;
     private static final int EMPTY_INPUT = 0;
+    private DatabaseConnectionHandler dbHandler = null;
 
-    // private BufferedReader bufferedReader = null;
-    // private TerminalTransactionsDelegate delegate = null;
-    private DatabaseUI databaseUI = null;
-
-    public DatabaseTransactions() {
+    public DatabaseTransactions(DatabaseConnectionHandler dbConnHandler) {
+        this.dbHandler = dbConnHandler;
     }
 
     /**
-     * Handles query received from UI interface (insert, delete, update, display)
-     * and delegates to the
+     * This class handles input received from UI interface (insert, delete, update, display etc.)
+     * and delegates to DatabaseConnectionHandler to handle sending the SQL query
      */
 
-    public void showMainMenu(TerminalTransactionsDelegate delegate) {
-//        this.delegate = delegate;
-//
-//        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        int choice = INVALID_INPUT;
-//
-//        while (choice != 5) {
-//            System.out.println();
-//            System.out.println("1. Insert branch");
-//            System.out.println("2. Delete branch");
-//            System.out.println("3. Update branch name");
-//            System.out.println("4. Show branch");
-//            System.out.println("5. Quit");
-//            System.out.print("Please choose one of the above 5 options: ");
-//
-//            choice = readInteger(false);
-//
-//            System.out.println(" ");
-//
-//            if (choice != INVALID_INPUT) {
-//                switch (choice) {
-//                    case 1:
-//                        handleInsertOption();
-//                        break;
-//                    case 2:
-//                        handleDeleteOption();
-//                        break;
-//                    case 3:
-//                        handleUpdateOption();
-//                        break;
-//                    case 4:
-//                        delegate.showBranch();
-//                        break;
-//                    case 5:
-//                        handleQuitOption();
-//                        break;
-//                    default:
-//                        System.out.println(WARNING_TAG + " The number that you entered" +
-//                                " was not a valid option.");
-//                        break;
-//                }
-//            }
-//        }
+    public void handleInsert(AbstractTable table) {
+        dbHandler.insert(table);
     }
 
-    private void handleDeleteOption() {
-//        int branchId = INVALID_INPUT;
-//        while (branchId == INVALID_INPUT) {
-//            System.out.print("Please enter the branch ID you wish to delete: ");
-//            branchId = readInteger(false);
-//            if (branchId != INVALID_INPUT) {
-//                delegate.deleteBranch(branchId);
-//            }
-//        }
+    public void handleDelete(int id) {
+
     }
 
-    private void handleInsertOption() {
-//        int id = INVALID_INPUT;
-//        while (id == INVALID_INPUT) {
-//            System.out.print("Please enter the branch ID you wish to insert: ");
-//            id = readInteger(false);
-//        }
-//
-//        String name = null;
-//        while (name == null || name.length() <= 0) {
-//            System.out.print("Please enter the branch name you wish to insert: ");
-//            name = readLine().trim();
-//        }
-//
-//        // branch address is allowed to be null so we don't need to repeatedly ask for the address
-//        System.out.print("Please enter the branch address you wish to insert: ");
-//        String address = readLine().trim();
-//        if (address.length() == 0) {
-//            address = null;
-//        }
-//
-//        String city = null;
-//        while (city == null || city.length() <= 0) {
-//            System.out.print("Please enter the branch city you wish to insert: ");
-//            city = readLine().trim();
-//        }
-//
-//        int phoneNumber = INVALID_INPUT;
-//        while (phoneNumber == INVALID_INPUT) {
-//            System.out.print("Please enter the branch phone number you wish to insert: ");
-//            phoneNumber = readInteger(true);
-//        }
-//
-//        BranchModel model = new BranchModel(address,
-//                city,
-//                id,
-//                name,
-//                phoneNumber);
-//        delegate.insertBranch(model);
+    public void handleUpdate(AbstractTable tableModel) {
+
     }
 
-    private void handleQuitOption() {
-//        System.out.println("Good Bye!");
-//
-//        if (bufferedReader != null) {
-//            try {
-//                bufferedReader.close();
-//            } catch (IOException e) {
-//                System.out.println("IOException!");
-//            }
-//        }
-//
-//        delegate.terminalTransactionsFinished();
+    public void handleDisplay(String tableName) {
+
     }
 
-    private void handleUpdateOption() {
-//        int id = INVALID_INPUT;
-//        while (id == INVALID_INPUT) {
-//            System.out.print("Please enter the branch ID you wish to update: ");
-//            id = readInteger(false);
-//        }
-//
-//        String name = null;
-//        while (name == null || name.length() <= 0) {
-//            System.out.print("Please enter the branch name you wish to update: ");
-//            name = readLine().trim();
-//        }
-//
-//        delegate.updateBranch(id, name);
-    }
+
+    // TODO: Add more methods for handling sending queries to databaseConnectionHandler?
 }

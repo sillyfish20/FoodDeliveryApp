@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class RequestsOrder {
+public class RequestsOrder extends AbstractTable {
     private final int restaurantID;
     private final int foodID;
     private final int orderId;

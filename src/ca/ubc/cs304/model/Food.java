@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
 
-public class Food {
+public class Food extends AbstractTable {
     private final int foodID;
     private final String fName;
     private final BigDecimal price;

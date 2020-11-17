@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class RestaurantLocation {
+public class RestaurantLocation extends AbstractTable {
     private final String street;
     private final String unitNum;
     private final String postalCode;

@@ -1,8 +1,10 @@
 package ca.ubc.cs304.model;
 
-import java.sql.Date;
+import oracle.jdbc.proxy.annotation.Pre;
 
-public class Customer {
+import java.sql.*;
+
+public class Customer extends AbstractTable {
     private final int customerID;
     private final String cName;
     private final String email;
@@ -21,6 +23,28 @@ public class Customer {
         this.points = points;
         this.trialStartDate = trialStartDate;
         this.membershipLevel = membershipLevel;
+    }
+
+    // TODO: Create method that handles creating SQL statements
+    public PreparedStatement getInsertStatement(Connection conn, Customer custTable) throws SQLException {
+        PreparedStatement ps;
+        try {
+            ps = conn.prepareStatement("INSERT INTO customer VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1, custTable.getCustomerID());
+            ps.setString(2, custTable.getCustomerName());
+            ps.setString(3, custTable.getEmail());
+            ps.setString(4, custTable.getPaymentInfo());
+            ps.setNull(4, Types.CHAR);
+            ps.setInt(5, custTable.getPoints());
+            // set TrialStartDate to Null
+            ps.setNull(6, Types.DATE);
+            ps.setInt(7, custTable.getMembershipLevel());
+
+            System.out.println("Preparing SQL statement");
+        } catch(SQLException e) {
+            throw e;
+        }
+        return ps;
     }
 
     public int getCustomerID() { return this.customerID; }

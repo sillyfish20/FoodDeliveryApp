@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class Transaction {
+public class Transaction extends AbstractTable {
     private final int customerID;
     private final int restaurantID;
 

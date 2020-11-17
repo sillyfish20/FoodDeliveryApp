@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class MakesOrder {
+public class MakesOrder extends AbstractTable {
     private final int orderID;
     private final int customerID;
     private final Timestamp orderTime;

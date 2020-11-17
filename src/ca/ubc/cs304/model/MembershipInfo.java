@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
 
-public class MembershipInfo {
+public class MembershipInfo extends AbstractTable {
     private final int membershipLevel;
     private final BigDecimal monthlyFee;
 

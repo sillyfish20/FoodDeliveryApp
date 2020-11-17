@@ -3,7 +3,7 @@ package ca.ubc.cs304.model;
 
 import java.sql.Timestamp;
 
-public class PicksUpOrder {
+public class PicksUpOrder extends AbstractTable {
     private final int orderId;
     private final int driverID;
     private final Timestamp pickUpTime;

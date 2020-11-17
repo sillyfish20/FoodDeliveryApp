@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class Drivers {
+public class Drivers extends AbstractTable {
     private final int driverID;
     private final String driversLicense;
     private final String dName;

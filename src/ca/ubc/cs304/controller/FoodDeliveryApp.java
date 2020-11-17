@@ -3,9 +3,10 @@ package ca.ubc.cs304.controller;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.TerminalTransactionsDelegate;
+import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
 import ca.ubc.cs304.ui.DatabaseTransactions;
-import ca.ubc.cs304.ui.DatabaseUI;
+import ca.ubc.cs304.ui.DatabaseAppUI;
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.TerminalTransactions;
 
@@ -17,7 +18,8 @@ import java.sql.Connection;
 public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
-	private DatabaseUI databaseUI = null;
+	private DatabaseAppUI databaseAppUI = null;
+	public static DatabaseTransactions dbTransactions = null;
 
 	public FoodDeliveryApp() {
 		dbHandler = new DatabaseConnectionHandler();
@@ -25,7 +27,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	
 	private void start() {
 		loginWindow = new LoginWindow();
-		databaseUI = new DatabaseUI();
+		databaseAppUI = new DatabaseAppUI();
 		loginWindow.showFrame(this);
 	}
 	
@@ -40,15 +42,9 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 		if (didConnect) {
 			// Once connected, remove login window and start text transaction flow
 			loginWindow.dispose();
-			// TODO: initiate the database transaction and GUI
-			// get the connection value, and pass it into DatabaseTransactions and TableModels
-			Connection conn = dbHandler.getConnection();
-			DatabaseTransactions dbTransactions = new DatabaseTransactions();
-			databaseUI.showFrame(dbTransactions);
-			// TODO: not sure if we need the TerminalTransactions anymore
-//			TerminalTransactions transaction = new TerminalTransactions();
-//			transaction.setupDatabase(this);
-//			transaction.showMainMenu(this);
+			// initiate databaseTransaction and GUI
+			dbTransactions = new DatabaseTransactions(dbHandler);
+			databaseAppUI.showFrame();
 		} else {
 			loginWindow.handleLoginFailed();
 

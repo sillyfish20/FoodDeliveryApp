@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class DriversVehicle {
+public class DriversVehicle extends AbstractTable {
     private final int driverID;
     private final String vehicleNum;
     private final int insuranceNum;

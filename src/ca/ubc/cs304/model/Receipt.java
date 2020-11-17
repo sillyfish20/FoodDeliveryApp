@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
 
-public class Receipt {
+public class Receipt extends AbstractTable {
     private final BigDecimal subTotal;
     private final BigDecimal deliveryFee;
     private final BigDecimal tax;

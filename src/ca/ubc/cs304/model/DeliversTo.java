@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class DeliversTo {
+public class DeliversTo extends AbstractTable {
     private final int driverID;
     private final String houseNum;
     private final String postalCode;

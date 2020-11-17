@@ -2,7 +2,7 @@ package ca.ubc.cs304.model;
 
 import java.sql.Date;
 
-public class TrialRange {
+public class TrialRange extends AbstractTable {
     private final Date trialStartDate;
     private final Date trialEndDate;
 

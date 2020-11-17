@@ -4,11 +4,7 @@ import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.model.AbstractTable;
 
 public class DatabaseTransactions {
-    private static final String EXCEPTION_TAG = "[EXCEPTION]";
-    private static final String WARNING_TAG = "[WARNING]";
-    private static final int INVALID_INPUT = Integer.MIN_VALUE;
-    private static final int EMPTY_INPUT = 0;
-    private DatabaseConnectionHandler dbHandler = null;
+    private DatabaseConnectionHandler dbHandler;
 
     public DatabaseTransactions(DatabaseConnectionHandler dbConnHandler) {
         this.dbHandler = dbConnHandler;
@@ -24,7 +20,7 @@ public class DatabaseTransactions {
     }
 
     public void handleDelete(int id) {
-
+        dbHandler.deleteDriver(id);
     }
 
     public void handleUpdate(AbstractTable tableModel) {

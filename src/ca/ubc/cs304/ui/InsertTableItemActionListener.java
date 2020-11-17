@@ -110,28 +110,12 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
-            // do something when insert button is clicked
-            System.out.println("Insert tuple into table");
-            // create the table object and pass it into DatabaseTransactions
-            // find out which table was selected
+            System.out.println("Insert button clicked");
             if (selectedTable.equals(CUSTOMER_TABLE)) {
-                Customer customer = null;
-                try {
-                    customer = createCustomerObj();
-                } catch (Exception err) {
-                    JLabel errorLabel = new JLabel("There was an error in the input");
-                    gbc.gridwidth = 2;
-                    gbc.gridx = 0;
-                    gbc.gridy = 3;
-                    gbc.anchor = GridBagConstraints.PAGE_END;
-                    attrPanel.add(errorLabel, gbc);
-                    attrPanel.revalidate();
-                    attrPanel.repaint();
-                }
-                // send customer object an insert query in databaseConnectionHandler
-                System.out.println("Sending Customer object to insert query");
+                Customer customer = createCustomerObj();
                 if (customer != null) {
-                    // TODO: send the query if the customer object is not null
+                    // send customer object to databaseTransactions to handle delegating insert operation
+                    System.out.println("Sending Customer object to insert query handler");
                     FoodDeliveryApp.dbTransactions.handleInsert(customer);
                 }
             }
@@ -139,7 +123,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
     }
 
     // creates a Customer table object
-    private Customer createCustomerObj() throws Exception {
+    private Customer createCustomerObj() {
         // get the customer attributes from JComponents
         Customer customer = null;
         try {
@@ -150,8 +134,9 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             customer = new Customer(custID, custName, email,
                     null, 0, null, 0);
             System.out.println("Creating Customer object");
-        } catch (Exception e) {
-            throw new Exception("Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Customer ID should be an integer!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
         return customer;
     }

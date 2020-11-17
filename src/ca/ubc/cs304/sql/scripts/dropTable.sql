@@ -17,6 +17,8 @@ drop table Food;
 drop table ManagesRestaurant;
 drop table AreaCode;
 drop table RestaurantLocation;
-drop table Vendors;
+drop table Vendor;
+
+
 
 

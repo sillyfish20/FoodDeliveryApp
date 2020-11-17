@@ -148,8 +148,6 @@ create table RequestsAddress
     FOREIGN KEY (CustomerID) REFERENCES Customer (CustomerID));
 
 
-
-
 INSERT INTO Vendor VALUES ('1390', 'Food Master', '1234 5678 9876', '100.00');
 INSERT INTO Vendor VALUES ('1391', 'Ronald McDonald ', '1342 6767 8787 ', '800.00');
 INSERT INTO Vendor VALUES ('1392', 'Gordon Ramsay', '2787 7878 8283 ', '200.00');

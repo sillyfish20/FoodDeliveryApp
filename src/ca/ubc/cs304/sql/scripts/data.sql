@@ -1,4 +1,4 @@
-create table Vendors 
+create table Vendor
     (VendorID INT PRIMARY KEY,
     Vname CHAR(50) NOT NULL,
     PaymentInfo CHAR(50) NOT NULL,
@@ -23,7 +23,7 @@ create table ManagesRestaurant
     UnitNum CHAR(50) NOT NULL,
     CuisineType CHAR(50),
     JoinDate DATE,
-    FOREIGN KEY (VendorID) REFERENCES Vendors (VendorID),
+    FOREIGN KEY (VendorID) REFERENCES Vendor (VendorID),
     FOREIGN KEY (PostalCode, UnitNum) REFERENCES RestaurantLocation (PostalCode, UnitNum),
     FOREIGN KEY (PostalCode) REFERENCES AreaCode (PostalCode));
 
@@ -150,11 +150,11 @@ create table RequestsAddress
 
 
 
-INSERT INTO Vendors VALUES ('1390', 'Food Master', '1234 5678 9876', '100.00');
-INSERT INTO Vendors VALUES ('1391', 'Ronald McDonald ', '1342 6767 8787 ', '800.00');
-INSERT INTO Vendors VALUES ('1392', 'Gordon Ramsay', '2787 7878 8283 ', '200.00');
-INSERT INTO Vendors VALUES ('1393', 'ABC Food Corp ', '9078 3647 2834 ', '259.00');
-INSERT INTO Vendors VALUES ('1394', 'Best Food Coop ', '9076 3241 2639 ', '100.00');
+INSERT INTO Vendor VALUES ('1390', 'Food Master', '1234 5678 9876', '100.00');
+INSERT INTO Vendor VALUES ('1391', 'Ronald McDonald ', '1342 6767 8787 ', '800.00');
+INSERT INTO Vendor VALUES ('1392', 'Gordon Ramsay', '2787 7878 8283 ', '200.00');
+INSERT INTO Vendor VALUES ('1393', 'ABC Food Corp ', '9078 3647 2834 ', '259.00');
+INSERT INTO Vendor VALUES ('1394', 'Best Food Coop ', '9076 3241 2639 ', '100.00');
 
 INSERT INTO RestaurantLocation VALUES ('V7S 3G5', '201-2013', 'Broadway');
 INSERT INTO RestaurantLocation VALUES ('P5N 7F8', '1342', 'Fraser');

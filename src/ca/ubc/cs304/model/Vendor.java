@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class Vendor {
+public class Vendor extends AbstractTable {
     private final int vendorId;
     private final String vendorName;
     private final String paymentInfo;
@@ -21,9 +21,7 @@ public class Vendor {
         return vendorName;
     }
 
-    public String getPaymentInfo() {
-        return paymentInfo;
-    }
+    public String getPaymentInfo() { return paymentInfo; }
 
     public int getMonthlyFee() { return monthlyFee; }
 }

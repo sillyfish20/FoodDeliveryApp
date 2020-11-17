@@ -1,14 +1,11 @@
 package ca.ubc.cs304.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
+import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
+import ca.ubc.cs304.model.Customer;
 
 /**
  * This class handles all database related transactions
@@ -43,6 +40,34 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+	// TODO: create methods that perform the queries we want
+
+	public void insert(AbstractTable tableModel) {
+		try {
+			PreparedStatement ps = null;
+			if (tableModel instanceof Customer) {
+				Customer cust = (Customer) tableModel;
+				// call method in Customer class that creates the SQL statement
+				ps = cust.getInsertStatement(connection, cust);
+			} // else if tableModel instanceof Vendor ... etc
+			System.out.println("Executing insert");
+			ps.executeUpdate();
+			connection.commit();
+
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
+	}
+
+	// TODO: implement method that deletes a driver given the driverID
+	public void deleteDriver(int driverID) {
+		// stub
+	}
+
+    ////////////////////////// BRANCH EXAMPLES //////////////////////////
+	// TODO: Delete these since they are for the Branch example
 	public void deleteBranch(int branchId) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM branch WHERE branch_id = ?");
@@ -156,6 +181,11 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 			return false;
 		}
+	}
+
+	// returns the connection
+	public Connection getConnection() {
+		return this.connection;
 	}
 
 	private void rollbackConnection() {

@@ -3,9 +3,14 @@ package ca.ubc.cs304.controller;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.TerminalTransactionsDelegate;
+import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
+import ca.ubc.cs304.ui.DatabaseTransactions;
+import ca.ubc.cs304.ui.DatabaseAppUI;
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.TerminalTransactions;
+
+import java.sql.Connection;
 
 /**
  * This is the main controller class that will orchestrate everything.
@@ -13,6 +18,8 @@ import ca.ubc.cs304.ui.TerminalTransactions;
 public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransactionsDelegate {
 	private DatabaseConnectionHandler dbHandler = null;
 	private LoginWindow loginWindow = null;
+	private DatabaseAppUI databaseAppUI = null;
+	public static DatabaseTransactions dbTransactions = null;
 
 	public FoodDeliveryApp() {
 		dbHandler = new DatabaseConnectionHandler();
@@ -20,6 +27,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	
 	private void start() {
 		loginWindow = new LoginWindow();
+		databaseAppUI = new DatabaseAppUI();
 		loginWindow.showFrame(this);
 	}
 	
@@ -34,10 +42,9 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 		if (didConnect) {
 			// Once connected, remove login window and start text transaction flow
 			loginWindow.dispose();
-
-			TerminalTransactions transaction = new TerminalTransactions();
-			transaction.setupDatabase(this);
-			transaction.showMainMenu(this);
+			// initiate databaseTransaction and GUI
+			dbTransactions = new DatabaseTransactions(dbHandler);
+			databaseAppUI.showFrame();
 		} else {
 			loginWindow.handleLoginFailed();
 
@@ -50,7 +57,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	}
 	
 	/**
-	 * TermainalTransactionsDelegate Implementation
+	 * TerminalTransactionsDelegate Implementation
 	 * 
 	 * Insert a branch with the given info
 	 */

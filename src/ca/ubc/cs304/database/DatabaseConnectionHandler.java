@@ -7,6 +7,8 @@ import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
 import ca.ubc.cs304.model.Customer;
 
+import javax.swing.*;
+
 /**
  * This class handles all database related transactions
  */
@@ -57,6 +59,8 @@ public class DatabaseConnectionHandler {
 			ps.close();
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			// should we create a JFrame window that shows the error?
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			rollbackConnection();
 		}
 	}
@@ -64,6 +68,7 @@ public class DatabaseConnectionHandler {
 	// TODO: implement method that deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
 		// stub
+		System.out.println("dbConnHandler handles deleteDriver()");
 	}
 
     ////////////////////////// BRANCH EXAMPLES //////////////////////////

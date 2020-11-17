@@ -1,5 +1,6 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.controller.FoodDeliveryApp;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 
 import javax.swing.*;
@@ -17,15 +18,16 @@ public class DeleteUI extends JFrame implements ActionListener {
     public DeleteUI() {
         super("Delete Driver");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(300, 300));
+        container.setPreferredSize(new Dimension(300, 210));
     }
 
-    // TODO: Since delete is very simple compared to insert, handle ActionListener in this class
-    //      instead of in another class
+    /**  Since delete is very simple compared to insert, handle ActionListener in this class
+     *   instead of creating another class
+     */
     public void showFrame() {
         JPanel deletePanel = new JPanel();
-        deletePanel.setLayout(new BoxLayout(deletePanel, BoxLayout.PAGE_AXIS));
-        deletePanel.setPreferredSize(new Dimension(300, 300));
+        deletePanel.setLayout(new GridBagLayout());
+        deletePanel.setPreferredSize(new Dimension(300, 200));
         deletePanel.setBorder(BorderFactory.createTitledBorder("Delete a Driver"));
         JLabel deleteDriverLabel = new JLabel("Driver ID to delete: ");
         driverIDInput = new JTextField(TEXT_FIELD_WIDTH);
@@ -33,10 +35,18 @@ public class DeleteUI extends JFrame implements ActionListener {
         JButton deleteButton = new JButton("Delete");
         deleteButton.addActionListener(this);
 
-        deletePanel.add(deleteDriverLabel);
-        deletePanel.add(driverIDInput);
-        deletePanel.add(deleteButton);
-        container.add(deletePanel);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        deletePanel.add(deleteDriverLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        deletePanel.add(driverIDInput, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        deletePanel.add(deleteButton, gbc);
+        container.add(deletePanel, gbc);
 
         // Display the frame
         this.add(container);
@@ -51,8 +61,15 @@ public class DeleteUI extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        // get text input
-        String driverID = driverIDInput.getText();
-        // TODO: call the method that handles sending the query
+        try {
+            // get text input
+            int driverID = Integer.parseInt(driverIDInput.getText());
+            // handle the delete query
+            System.out.println("Sending driverID to delete query handler");
+            FoodDeliveryApp.dbTransactions.handleDelete(driverID);
+        } catch (NumberFormatException err) {
+            JOptionPane.showMessageDialog(null, "driverID should be an integer!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

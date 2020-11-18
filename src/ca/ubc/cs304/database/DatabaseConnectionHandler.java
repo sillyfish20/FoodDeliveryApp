@@ -87,49 +87,31 @@ public class DatabaseConnectionHandler {
 		System.out.println("dbConnHandler handles deleteDriver()");
 	}
 
+	//TODO: SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
+
+
+
+	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
+
+	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
+
+	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders
+	// 								and an average subtotal price of more than 50$
+
+
+	//TODO: NESTED AGGREGATION WITH GROUPBY:Find customers who made orders with the largest avg subtotal
+
+	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order
+
+
+
+
+
+	
     ////////////////////////// BRANCH EXAMPLES //////////////////////////
 	// TODO: Delete these since they are for the Branch example
-	public void deleteBranch(int branchId) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("DELETE FROM branch WHERE branch_id = ?");
-			ps.setInt(1, branchId);
-			
-			int rowCount = ps.executeUpdate();
-			if (rowCount == 0) {
-				System.out.println(WARNING_TAG + " Branch " + branchId + " does not exist!");
-			}
-			
-			connection.commit();
-	
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
-	
-	public void insertBranch(BranchModel model) {
-		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO branch VALUES (?,?,?,?,?)");
-			ps.setInt(1, model.getId());
-			ps.setString(2, model.getName());
-			ps.setString(3, model.getAddress());
-			ps.setString(4, model.getCity());
-			if (model.getPhoneNumber() == 0) {
-				ps.setNull(5, java.sql.Types.INTEGER);
-			} else {
-				ps.setInt(5, model.getPhoneNumber());
-			}
 
-			ps.executeUpdate();
-			connection.commit();
 
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}
-	}
 	
 	public BranchModel[] getBranchInfo() {
 		ArrayList<BranchModel> result = new ArrayList<BranchModel>();

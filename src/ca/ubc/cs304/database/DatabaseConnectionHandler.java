@@ -65,6 +65,8 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
+
+	// DELETE: deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
@@ -85,8 +87,34 @@ public class DatabaseConnectionHandler {
 		System.out.println("dbConnHandler handles deleteDriver()");
 	}
 
-	//TODO: SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
+	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
+	public OrderAnalysis[] SelectionQuery(double minSubTotal) {
+		ArrayList<OrderAnalysis> result = new ArrayList<OrderAnalysis>();
 
+		String queryStmt = "SELECT orderID, subtotal FROM MakesOrder WHERE subtotal > " + String.valueof(minSubTotal);
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("CustomerID"), rs.getDecimal("Subtotal"));
+				/////// how deal with decimal vs double? decimal is for sql and double is for java????
+
+
+				result.add(analysis);
+			}
+
+			rs.close();
+			stmt.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result.toArray(new OrderAnalysis[result.size()]);
+	}
 
 
 	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
@@ -105,7 +133,7 @@ public class DatabaseConnectionHandler {
 
 
 
-	
+
     ////////////////////////// BRANCH EXAMPLES //////////////////////////
 	// TODO: Delete these since they are for the Branch example
 

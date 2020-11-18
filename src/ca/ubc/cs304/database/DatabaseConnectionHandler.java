@@ -65,12 +65,10 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	// TODO: implement method that deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
-		// stub
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
-			ps.setInt(1, driverId);
+			ps.setInt(1, driverID);
 
 			int rowCount = ps.executeUpdate();
 			if (rowCount == 0) {
@@ -86,6 +84,29 @@ public class DatabaseConnectionHandler {
 		}
 		System.out.println("dbConnHandler handles deleteDriver()");
 	}
+
+	// TODO: implement method that updates the Customer table given the customerID,
+	//		and updates the selected attribute to the user input
+	// 		UPDATE Customer SET email = <user_input> WHERE customerID = <user_input>
+
+
+	// TODO: implement method that displays the table specified by user
+	//		SELECT * FROM <table_name>
+
+
+	// TODO: implement method that returns the orderID and subtotal
+	//  	for orders with subtotals greater than user specified value
+	//		SELECT orderID, subTotal FROM MakesOrder WHERE subtotal >= <user_input>
+
+	// TODO: Projection/Join
+
+	// TODO: Aggregation with Group By
+
+	// TODO: Aggregation with Having
+
+	// TODO: Nested Aggregation with Group By
+
+	// TODO: Division
 
     ////////////////////////// BRANCH EXAMPLES //////////////////////////
 	// TODO: Delete these since they are for the Branch example

@@ -23,14 +23,36 @@ public class DatabaseTransactions {
         dbHandler.deleteDriver(id);
     }
 
-    public void handleUpdate(AbstractTable tableModel) {
-
+    public void handleUpdate(int custID, String attr, String newValue) {
+        // TODO: call update in dbConnectionHandler
+        System.out.println("in handleUpdate()");
     }
 
     public void handleDisplay(String tableName) {
-
+        // TODO: call displayTable in dbConnectionHandler
     }
 
+    public void handleSelectionQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
 
-    // TODO: Add more methods for handling sending queries to databaseConnectionHandler?
+    public void handleProjJoinQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleAggrGroupByQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleAggrHavingQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleNestedAggrGroupByQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleDivisionQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
 }

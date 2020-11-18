@@ -65,12 +65,10 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	// TODO: implement method that deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
-		// stub
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
-			ps.setInt(1, driverId);
+			ps.setInt(1, driverID);
 
 			int rowCount = ps.executeUpdate();
 			if (rowCount == 0) {

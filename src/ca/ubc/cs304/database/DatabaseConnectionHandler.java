@@ -68,6 +68,22 @@ public class DatabaseConnectionHandler {
 	// TODO: implement method that deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
 		// stub
+		try {
+			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
+			ps.setInt(1, driverId);
+
+			int rowCount = ps.executeUpdate();
+			if (rowCount == 0) {
+				System.out.println(WARNING_TAG + " Driver " + driverID + " does not exist!");
+			}
+
+			connection.commit();
+
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			rollbackConnection();
+		}
 		System.out.println("dbConnHandler handles deleteDriver()");
 	}
 

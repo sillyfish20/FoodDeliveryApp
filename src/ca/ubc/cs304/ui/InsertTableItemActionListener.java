@@ -84,6 +84,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
         JLabel membershipLevelLabel = new JLabel("Membership Level: ");
 
         // layout components using the GridBag layout manager
+        attrPanel.setPreferredSize(new Dimension(300, 150));
         attrPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;

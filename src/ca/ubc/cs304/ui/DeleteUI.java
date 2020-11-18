@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DeleteUI extends JFrame implements ActionListener {
-    private DatabaseConnectionHandler dbConnHandler;
     private static final int TEXT_FIELD_WIDTH = 10;
     private JPanel container;
     // this is a global field so we can access the text value
@@ -68,7 +67,7 @@ public class DeleteUI extends JFrame implements ActionListener {
             System.out.println("Sending driverID to delete query handler");
             FoodDeliveryApp.dbTransactions.handleDelete(driverID);
         } catch (NumberFormatException err) {
-            JOptionPane.showMessageDialog(null, "driverID should be an integer!",
+            JOptionPane.showMessageDialog(null, "Driver ID should be an integer!",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

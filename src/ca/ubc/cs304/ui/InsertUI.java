@@ -9,14 +9,13 @@ public class InsertUI extends JFrame {
     public InsertUI() {
         super("Insert into Table");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(300, 300));
+        container.setPreferredSize(new Dimension(300, 200));
     }
 
     public void showFrame() {
-        // INSERT //
         JPanel insertPanel = new JPanel();
         insertPanel.setLayout(new BoxLayout(insertPanel, BoxLayout.PAGE_AXIS));
-        insertPanel.setPreferredSize(new Dimension(300, 300));
+        insertPanel.setPreferredSize(new Dimension(300, 200));
         insertPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         JLabel insertTableLabel = new JLabel("Select Table: ");
         String[] tables = {"", "Customer", "Vendor", "Drivers"};

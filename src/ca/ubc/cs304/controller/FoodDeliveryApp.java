@@ -62,7 +62,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	 * Insert a branch with the given info
 	 */
     public void insertBranch(BranchModel model) {
-    	dbHandler.insertBranch(model);
+    	// dbHandler.insertBranch(model);
     }
 
     /**
@@ -71,7 +71,7 @@ public class FoodDeliveryApp implements LoginWindowDelegate, TerminalTransaction
 	 * Delete branch with given branch ID.
 	 */ 
     public void deleteBranch(int branchId) {
-    	dbHandler.deleteBranch(branchId);
+    	// dbHandler.deleteBranch(branchId);
     }
     
     /**

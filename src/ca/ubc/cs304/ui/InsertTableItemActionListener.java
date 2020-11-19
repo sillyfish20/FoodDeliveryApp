@@ -2,6 +2,7 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.controller.FoodDeliveryApp;
 import ca.ubc.cs304.model.Customer;
+import ca.ubc.cs304.model.Drivers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,20 +10,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Date;
 
 public class InsertTableItemActionListener implements ItemListener, ActionListener {
     private static final int TEXT_FIELD_WIDTH = 10;
     private static final String CUSTOMER_TABLE = "Customer";
-    private static final String VENDOR_TABLE = "Vendor";
     private static final String DRIVERS_TABLE = "Drivers";
     private JPanel attrPanel;
     private String selectedTable = null;
     private JTextField custIDText;
     private JTextField custNameText;
     private JTextField emailText;
+    private JTextField driverIDText;
+    private JTextField driverNameText;
+    private JTextField licenseText;
+    private JCheckBox recordApprovedBox;
     private GridBagConstraints gbc;
-
-
 
     /**
      * Receives panel containing insert fields so we can add modify it
@@ -55,8 +58,8 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
         attrPanel.removeAll();
         if (table.equals(CUSTOMER_TABLE)) {
             updateToCustomerTable();
-        } else if (table.equals(VENDOR_TABLE)) {
-            // updateToVendorTable
+        } else if (table.equals(DRIVERS_TABLE)) {
+            updateToDriverTable();
             // do this if have time lol
         }
 
@@ -108,20 +111,70 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
         attrPanel.add(emailText, gbc);
     }
 
+    private void updateToDriverTable() {
+        // display driver related attributes
+        JLabel driverIDLabel = new JLabel("Driver ID:");
+        driverIDText = new JTextField(TEXT_FIELD_WIDTH);
+        JLabel driverNameLabel = new JLabel("Driver name:");
+        driverNameText = new JTextField(TEXT_FIELD_WIDTH);
+        JLabel licenseLabel =  new JLabel("Drivers License: ");
+        licenseText = new JTextField(TEXT_FIELD_WIDTH);
+        JLabel recordApprovedLabel = new JLabel("Driving Record Approved?");
+        recordApprovedBox = new JCheckBox();
+
+        // layout components using the GridBag layout manager
+        attrPanel.setPreferredSize(new Dimension(300, 150));
+        attrPanel.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        attrPanel.add(driverIDLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        attrPanel.add(driverIDText, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        attrPanel.add(driverNameLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        attrPanel.add(driverNameText, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        attrPanel.add(licenseLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        attrPanel.add(licenseText, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        attrPanel.add(recordApprovedLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        attrPanel.add(recordApprovedBox, gbc);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             System.out.println("Insert button clicked");
-            if (selectedTable.equals(CUSTOMER_TABLE)) {
+            if (selectedTable.equalsIgnoreCase(CUSTOMER_TABLE)) {
                 Customer customer = createCustomerObj();
                 if (customer != null) {
                     // send customer object to databaseTransactions to handle delegating insert operation
                     System.out.println("Sending Customer object to insert query handler");
                     FoodDeliveryApp.dbTransactions.handleInsert(customer);
                 }
+            } else if (selectedTable.equalsIgnoreCase(DRIVERS_TABLE)) {
+                Drivers driver = createDriverObj();
+                if (driver != null) {
+                    // send driver object to databaseTransactions to handle delegating insert operation
+                    System.out.println("Sending Customer object to insert query handler");
+                    FoodDeliveryApp.dbTransactions.handleInsert(driver);
+                }
             }
         }
     }
+
 
     // creates a Customer table object
     private Customer createCustomerObj() {
@@ -140,5 +193,26 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         return customer;
+    }
+
+    // creates a Driver table object
+    private Drivers createDriverObj() {
+        Drivers driver = null;
+        try {
+            int driverID = Integer.parseInt(driverIDText.getText());
+            String driverName = driverNameText.getText();
+            String license = licenseText.getText();
+            int recordApproved = 0;
+            if (recordApprovedBox.isSelected()) {
+                recordApproved = 1;
+            }
+
+            driver = new Drivers(driverID, license, driverName, recordApproved);
+            System.out.println("Creating Customer object");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Driver ID should be an integer!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return driver;
     }
 }

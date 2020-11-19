@@ -25,7 +25,7 @@ public class Customer extends AbstractTable {
         this.points = points;
     }
 
-    // TODO: Create method that handles creating SQL statements
+    // This method handles creating SQL statements for inserting into Customer table
     public PreparedStatement getInsertStatement(Connection conn, Customer custTable) throws SQLException {
         PreparedStatement ps;
         try {
@@ -47,7 +47,7 @@ public class Customer extends AbstractTable {
         return ps;
     }
 
-    // TODO: create method that handles creating SQL statement for updating a tuple
+    // This method handles creating SQL statement for updating a tuple in Customer table
     public static PreparedStatement getUpdateStatement(Connection conn, int custID,
                                                        String attr, String newValue) throws SQLException {
         PreparedStatement ps;

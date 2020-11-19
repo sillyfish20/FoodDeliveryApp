@@ -24,6 +24,7 @@ public class DeleteUI extends JFrame implements ActionListener {
      *   instead of creating another class
      */
     public void showFrame() {
+        container.removeAll();
         JPanel deletePanel = new JPanel();
         deletePanel.setLayout(new GridBagLayout());
         deletePanel.setPreferredSize(new Dimension(300, 200));

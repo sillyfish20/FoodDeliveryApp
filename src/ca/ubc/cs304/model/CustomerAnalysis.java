@@ -15,9 +15,9 @@ public class CustomerAnalysis {
     }
 
     public int getCustomerID() {
-        return customerID;
+        return this.customerID;
     }
 
-    public String getcName() { return cName;}
+    public String getcName() { return this.cName;}
 
 }

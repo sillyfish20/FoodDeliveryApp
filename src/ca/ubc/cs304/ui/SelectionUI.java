@@ -23,6 +23,7 @@ public class SelectionUI extends JFrame implements ActionListener {
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel selectionPanel = new JPanel();
         // set layout
         selectionPanel.setLayout(new GridBagLayout());
@@ -80,7 +81,7 @@ public class SelectionUI extends JFrame implements ActionListener {
             BigDecimal subTotalValue = new BigDecimal(subTotalField.getText());
             ArrayList<OrderAnalysis> results = FoodDeliveryApp.dbTransactions.handleSelectionQuery(subTotalValue);
             // display the data
-            String[] columnNames = {"orderID", "Subtotal"};
+            String[] columnNames = {"OrderID", "Subtotal"};
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String orderIDData = String.valueOf(results.get(i).getOrderID());

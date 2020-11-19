@@ -1,5 +1,8 @@
 package ca.ubc.cs304.model;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class MakesOrder extends AbstractTable {
@@ -18,6 +21,17 @@ public class MakesOrder extends AbstractTable {
         this.subTotal = subTotal;
         this.deliveryFee = deliveryFee;
         this.tax = tax;
+    }
+
+    public static Object[] getMakesOrderRows(ResultSet rs) throws SQLException {
+        int orderID = rs.getInt("OrderID");
+        int custID = rs.getInt("CustomerID");
+        Timestamp orderTime = rs.getTimestamp("OrderTime");
+        BigDecimal subTotal = rs.getBigDecimal("Subtotal");
+        BigDecimal deliveryFee = rs.getBigDecimal("DeliveryFee");
+        BigDecimal tax = rs.getBigDecimal("Tax");
+        Object[] rows = {orderID, custID, orderTime, subTotal, deliveryFee, tax};
+        return rows;
     }
 
     public int getOrderID() { return this.orderID; }

@@ -1,7 +1,6 @@
 package ca.ubc.cs304.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Drivers extends AbstractTable {
     private final int driverID;
@@ -25,6 +24,23 @@ public class Drivers extends AbstractTable {
         int drivingRecordApproved = rs.getInt("drivingRecordApproved");
         Object[] rows = {driverID, driversLicense, dName, drivingRecordApproved};
         return rows;
+    }
+
+    // This method handles creating SQL statements for inserting a tuple into Drivers table
+    public PreparedStatement getInsertStatement(Connection conn, Drivers driverTable) throws SQLException {
+        PreparedStatement ps;
+        try {
+            ps = conn.prepareStatement("INSERT INTO Drivers VALUES (?,?,?,?)");
+            ps.setInt(1, driverTable.getDriverID());
+            ps.setString(2, driverTable.getDriversLicense());
+            ps.setString(3, driverTable.getDriverName());
+            ps.setInt(4, driverTable.getDrivingRecApproved());
+
+            System.out.println("Preparing SQL statement");
+        } catch(SQLException e) {
+            throw e;
+        }
+        return ps;
     }
 
     public int getDriverID() { return this.driverID; }

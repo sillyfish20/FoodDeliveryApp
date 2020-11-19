@@ -45,14 +45,16 @@ public class DatabaseConnectionHandler {
 
 	// TODO: create methods that perform the queries we want
 
-	public void insert(AbstractTable tableModel) {
+	public void insert(AbstractTable tableObject) {
 		try {
 			PreparedStatement ps = null;
-			if (tableModel instanceof Customer) {
-				Customer cust = (Customer) tableModel;
-				// call method in Customer class that creates the SQL statement
+			if (tableObject instanceof Customer) {
+				Customer cust = (Customer) tableObject;
 				ps = cust.getInsertStatement(connection, cust);
-			} // else if tableModel instanceof Vendor ... etc
+			} else if (tableObject instanceof Drivers) {
+				Drivers driver = (Drivers) tableObject;
+				ps = driver.getInsertStatement(connection, driver);
+			}
 			System.out.println("Executing insert");
 			ps.executeUpdate();
 			connection.commit();
@@ -296,11 +298,12 @@ public class DatabaseConnectionHandler {
 
         try {
             Statement stmt = connection.createStatement();
+			System.out.println("Executing division query");
             ResultSet rs = stmt.executeQuery(queryStmt);
 
             while (rs.next()) {
 
-                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("OrderID"),
+                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
                         rs.getString("Cname"));
                 result.add(analysis);
             }

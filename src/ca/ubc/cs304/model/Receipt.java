@@ -1,6 +1,8 @@
 package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Receipt extends AbstractTable {
     private final BigDecimal subTotal;
@@ -13,6 +15,15 @@ public class Receipt extends AbstractTable {
         this.deliveryFee = deliveryFee;
         this.tax = tax;
         this.total = total;
+    }
+
+    public static Object[] getReceiptRows(ResultSet rs) throws SQLException {
+        BigDecimal subTotal = rs.getBigDecimal("Subtotal");
+        BigDecimal deliveryFee = rs.getBigDecimal("DeliveryFee");
+        BigDecimal tax = rs.getBigDecimal("Tax");
+        BigDecimal total = rs.getBigDecimal("Total");
+        Object[] rows = {subTotal, deliveryFee, tax, total};
+        return rows;
     }
 
     public BigDecimal getSubTotal() {

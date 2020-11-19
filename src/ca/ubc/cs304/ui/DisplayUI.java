@@ -54,7 +54,6 @@ public class DisplayUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // get the selected table from table drop down
         System.out.println("Display button clicked!");
         String selectedTable = (String) tableDropDown.getSelectedItem();
         DefaultTableModel tableModel = FoodDeliveryApp.dbTransactions.handleDisplay(selectedTable);
@@ -62,11 +61,11 @@ public class DisplayUI extends JFrame implements ActionListener {
     }
 
     private void displayTable(DefaultTableModel tableModel) {
-        // display the table with retrieved data
         tablePanel.removeAll();
 
         JTable table = new JTable(tableModel);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        // resize the column width if there are less columns
         if (table.getColumnCount() <= TABLE_COLUMN_COUNT) {
             table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         }

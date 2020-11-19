@@ -22,6 +22,7 @@ public class DivisionUI extends JFrame implements ActionListener{
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel selectionPanel = new JPanel();
         // set layout
         selectionPanel.setLayout(new GridBagLayout());
@@ -91,7 +92,7 @@ public class DivisionUI extends JFrame implements ActionListener{
             this.repaint();
             ((JFrame) SwingUtilities.getRoot(container)).pack();
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "Error! You did something wrong with the division query.",
+            JOptionPane.showMessageDialog(null, "Something went wrong with the division query.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 

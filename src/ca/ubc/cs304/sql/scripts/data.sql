@@ -160,11 +160,17 @@ INSERT INTO RestaurantLocation VALUES ('J5K 6N8', '2039', 'Main');
 INSERT INTO RestaurantLocation VALUES ('K6B 7C8', '1854', 'Keefer');
 INSERT INTO RestaurantLocation VALUES ('Z6Y 8V9', '3049', 'McDonald');
 
+INSERT INTO RestaurantLocation VALUES ('V3E 3R7', '2009', 'Ioco');
+
+
 INSERT INTO AreaCode VALUES ('V7S 3G5', 'Vancouver', 'British Columbia');
 INSERT INTO AreaCode VALUES ('P5N 7F8', 'Vancouver', 'British Columbia');
 INSERT INTO AreaCode VALUES ('J5K 6N8', 'Vancouver', 'British Columbia');
 INSERT INTO AreaCode VALUES ('K6B 7C8', 'Langley', 'British Columbia');
 INSERT INTO AreaCode VALUES ('Z6Y 8V9', 'Burnaby', 'British Columbia');
+
+INSERT INTO AreaCode VALUES ('V3E 3R7', 'Coquitlam', 'British Columbia');
+
 
 INSERT INTO ManagesRestaurant VALUES ('3524', '1390', 'V7S 3G5', 'Broadway Chicken Shop', '201-2013', 'Western', TO_DATE('12-SEP-2019', 'DD-MON-YY'));
 INSERT INTO ManagesRestaurant VALUES ('3525', '1391', 'P5N 7F8', 'Hee Rae Dong', '1342', 'Korean', TO_DATE('2-JAN-2020', 'DD-MON-YY'));
@@ -172,11 +178,22 @@ INSERT INTO ManagesRestaurant VALUES ('3526', '1392', 'J5K 6N8', 'Dumpling House
 INSERT INTO ManagesRestaurant VALUES ('3527', '1393', 'K6B 7C8', 'Ajisai', '1854', 'Japanese', TO_DATE('2-APR-2019', 'DD-MON-YY'));
 INSERT INTO ManagesRestaurant VALUES ('3528', '1394', 'Z6Y 8V9', 'Lemongrass', '3049', 'Vietnamese', TO_DATE('1-JAN-2020', 'DD-MON-YY'));
 
+INSERT INTO ManagesRestaurant VALUES ('3529', '1390', 'V3E 3R7', 'Coffee Cantata', '2009', 'Western', TO_DATE('20-JAN-2019', 'DD-MON-YY'));
+
+
 INSERT INTO Food VALUES ('2230', 'Potato Wedges', '7.00', 'Appetizer');
 INSERT INTO Food VALUES ('2231', 'Chicken Noodle Soup ', '6.25 ', 'Soup');
 INSERT INTO Food VALUES ('2232', 'Tomato Beef Noodle Soup', '14.95', 'Noodle');
 INSERT INTO Food VALUES ('2234', 'Fries', '5.96', 'Appetizer');
 INSERT INTO Food VALUES ('2235', 'Cherry Soda', '4.19', 'Drink');
+
+INSERT INTO Food VALUES ('2236', 'Premium Steak Family Size', '100.00', 'Main Dish');
+INSERT INTO Food VALUES ('2237', 'Sushi Big Party', '150.00', 'Main Dish');
+INSERT INTO Food VALUES ('2238', 'Coffee Carafe', '50.00', 'Drink');
+INSERT INTO Food VALUES ('2239', 'Kenya AA Hand Drip', '10.00', 'Drink');
+INSERT INTO Food VALUES ('2240', 'Black Forest Cake', '60.00', 'Dessert');
+INSERT INTO Food VALUES ('2241', 'Chicken Wrap Combo', '15.00', 'Main Dish');
+
 
 INSERT INTO Drivers VALUES ('5380', '1827937', 'Lucy Shee', 1);
 INSERT INTO Drivers VALUES ('5381', '1625374', 'Anthony Wong', 0);
@@ -214,11 +231,22 @@ INSERT INTO Drivers_Vehicle VALUES ('5382', '1', '222222222');
 INSERT INTO Drivers_Vehicle VALUES ('5383', '3', '333333333');
 INSERT INTO Drivers_Vehicle VALUES ('5384', '2', '444444444');
 
+INSERT INTO Drivers_Vehicle VALUES ('5384', '1', '555555555');
+
+
 INSERT INTO Serves VALUES ('3524', '2230');
 INSERT INTO Serves VALUES ('3525', '2231');
 INSERT INTO Serves VALUES ('3526', '2232');
 INSERT INTO Serves VALUES ('3527', '2234');
 INSERT INTO Serves VALUES ('3528', '2235');
+
+INSERT INTO Serves VALUES ('3526', '2236');
+INSERT INTO Serves VALUES ('3527', '2237');
+INSERT INTO Serves VALUES ('3529', '2238');
+INSERT INTO Serves VALUES ('3529', '2239');
+INSERT INTO Serves VALUES ('3529', '2240');
+INSERT INTO Serves VALUES ('3524', '2241');
+
 
 INSERT INTO Receipt VALUES ('93.80', '4.98', '5.80', '104.58');
 INSERT INTO Receipt VALUES ('125.75', '6.29', '0.00', '132.04');
@@ -226,11 +254,37 @@ INSERT INTO Receipt VALUES ('23.09', '1.27', '2.30', '26.66');
 INSERT INTO Receipt VALUES ('15.70', '0.91', '2.57', '19.18');
 INSERT INTO Receipt VALUES ('258.03', '13.31', '8.30', '279.65');
 
+INSERT INTO Receipt VALUES ('100.00', '5.00', '5.00', '110.00');
+INSERT INTO Receipt VALUES ('150.00', '7.50', '6.50', '164.00');
+INSERT INTO Receipt VALUES ('50.00', '2.50', '3.50', '56.00');
+INSERT INTO Receipt VALUES ('10.00', '0.50', '2.30', '12.80');
+INSERT INTO Receipt VALUES ('60.00', '3.00', '3.80', '66.80');
+INSERT INTO Receipt VALUES ('60.00', '3.00', '3.00', '66.00');
+INSERT INTO Receipt VALUES ('15.00', '0.75', '2.45', '18.20');
+
+INSERT INTO Receipt VALUES ('7.00', '0.35', '2.21', '9.56');
+INSERT INTO Receipt VALUES ('14.95', '0.75', '2.45', '18.15');
+INSERT INTO Receipt VALUES ('4.19', '0.21', '2.13', '6.53');
+
+
 INSERT INTO MakesOrder VALUES ('6021', '4456', '5.80', '93.80', '4.98', TIMESTAMP'2019-08-01 23:30:01 US/Pacific');
 INSERT INTO MakesOrder VALUES ('6022', '4457', '0.00', '125.75', '6.29', TIMESTAMP'2019-09-09 01:00:01 US/Pacific');
 INSERT INTO MakesOrder VALUES ('6023', '4458', '2.30', '23.09', '1.27', TIMESTAMP'2019-12-21 11:20:01 US/Pacific');
 INSERT INTO MakesOrder VALUES ('6024', '4459', '2.57', '15.70', '0.91', TIMESTAMP'2020-06-11 09:48:01 US/Pacific');
 INSERT INTO MakesOrder VALUES ('6025', '4460', '8.30', '258.03', '13.31', TIMESTAMP'2020-08-24 03:20:01 US/Pacific');
+
+INSERT INTO MakesOrder VALUES ('6026', '4456', '5.00', '100.00', '5.00', TIMESTAMP'2019-08-11 20:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6027', '4457', '6.50', '150.00', '7.50', TIMESTAMP'2019-08-21 19:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6028', '4456', '3.50', '50.00', '2.50', TIMESTAMP'2019-09-29 14:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6029', '4456', '2.30', '10.00', '0.50', TIMESTAMP'2019-11-29 14:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6030', '4456', '3.80', '60.00', '3.00', TIMESTAMP'2019-12-29 14:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6031', '4457', '3.00', '60.00', '3.00', TIMESTAMP'2019-12-25 11:00:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6032', '4456', '2.45', '15.00', '0.75', TIMESTAMP'2020-1-20 12:00:01 US/Pacific');
+
+INSERT INTO MakesOrder VALUES ('6033', '4457', '2.21', '7.00', '0.35', TIMESTAMP'2019-12-26 17:00:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6034', '4457', '2.45', '14.95', '0.75', TIMESTAMP'2019-12-27 18:30:01 US/Pacific');
+INSERT INTO MakesOrder VALUES ('6035', '4457', '2.13', '4.19', '0.21', TIMESTAMP'2019-12-28 09:30:01 US/Pacific');
+
 
 INSERT INTO OrderDestination VALUES ('6021', '1288', 'V6E 4R3');
 INSERT INTO OrderDestination VALUES ('6022', '1104', 'V3J 2M8');
@@ -238,11 +292,37 @@ INSERT INTO OrderDestination VALUES ('6023', '2053', 'V6T 1Z2');
 INSERT INTO OrderDestination VALUES ('6024', '8800', 'V3J 7X5');
 INSERT INTO OrderDestination VALUES ('6025', '300', 'V3H 2M5');
 
+INSERT INTO OrderDestination VALUES ('6026', '1288', 'V6E 4R3');
+INSERT INTO OrderDestination VALUES ('6027', '1104', 'V3J 2M8');
+INSERT INTO OrderDestination VALUES ('6028', '1288', 'V6E 4R3');
+INSERT INTO OrderDestination VALUES ('6029', '1288', 'V6E 4R3');
+INSERT INTO OrderDestination VALUES ('6030', '1288', 'V6E 4R3');
+INSERT INTO OrderDestination VALUES ('6031', '1104', 'V3J 2M8');
+INSERT INTO OrderDestination VALUES ('6032', '1288', 'V6E 4R3');
+
+INSERT INTO OrderDestination VALUES ('6033', '1104', 'V3J 2M8');
+INSERT INTO OrderDestination VALUES ('6034', '1104', 'V3J 2M8');
+INSERT INTO OrderDestination VALUES ('6035', '1104', 'V3J 2M8');
+
+
 INSERT INTO RequestsOrder VALUES ('3524', '2230', '6021');
 INSERT INTO RequestsOrder VALUES ('3525', '2231', '6022');
 INSERT INTO RequestsOrder VALUES ('3526', '2232', '6023');
 INSERT INTO RequestsOrder VALUES ('3527', '2234', '6024');
 INSERT INTO RequestsOrder VALUES ('3528', '2235', '6025');
+
+INSERT INTO RequestsOrder VALUES ('3526', '2236', '6026');
+INSERT INTO RequestsOrder VALUES ('3527', '2237', '6027');
+INSERT INTO RequestsOrder VALUES ('3529', '2238', '6028');
+INSERT INTO RequestsOrder VALUES ('3529', '2239', '6029');
+INSERT INTO RequestsOrder VALUES ('3529', '2240', '6030');
+INSERT INTO RequestsOrder VALUES ('3529', '2240', '6031');
+INSERT INTO RequestsOrder VALUES ('3524', '2241', '6032');
+
+INSERT INTO RequestsOrder VALUES ('3524', '2230', '6033');
+INSERT INTO RequestsOrder VALUES ('3526', '2232', '6034');
+INSERT INTO RequestsOrder VALUES ('3528', '2235', '6035');
+
 
 INSERT INTO PicksUpOrder VALUES ('6021','5380', TIMESTAMP'2019-08-01 00:00:01 US/Pacific');
 INSERT INTO PicksUpOrder VALUES ('6022','5381', TIMESTAMP'2019-09-09 01:30:01 US/Pacific');
@@ -250,17 +330,46 @@ INSERT INTO PicksUpOrder VALUES ('6023','5382', TIMESTAMP'2019-12-21 11:50:01 US
 INSERT INTO PicksUpOrder VALUES ('6024','5383', TIMESTAMP'2020-06-11 10:08:01 US/Pacific');
 INSERT INTO PicksUpOrder VALUES ('6025','5384', TIMESTAMP'2020-08-24 03:56:01 US/Pacific');
 
+INSERT INTO PicksUpOrder VALUES ('6026','5383', TIMESTAMP'2019-08-11 21:00:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6027','5384', TIMESTAMP'2019-08-21 20:30:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6028','5383', TIMESTAMP'2019-09-29 15:00:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6029','5384', TIMESTAMP'2019-11-29 14:40:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6030','5384', TIMESTAMP'2019-12-29 14:50:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6031','5380', TIMESTAMP'2019-12-25 11:20:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6032','5380', TIMESTAMP'2020-01-20 12:30:01 US/Pacific');
+
+INSERT INTO PicksUpOrder VALUES ('6033','5380', TIMESTAMP'2019-12-26 17:10:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6034','5380', TIMESTAMP'2019-12-27 18:50:01 US/Pacific');
+INSERT INTO PicksUpOrder VALUES ('6035','5380', TIMESTAMP'2019-12-28 09:55:01 US/Pacific');
+
+
 INSERT INTO Transactions VALUES ('4456', '3524');
 INSERT INTO Transactions VALUES ('4457', '3525');
 INSERT INTO Transactions VALUES ('4458', '3526');
 INSERT INTO Transactions VALUES ('4459', '3527');
 INSERT INTO Transactions VALUES ('4460', '3528');
 
+INSERT INTO Transactions VALUES ('4456', '3526');
+INSERT INTO Transactions VALUES ('4457', '3527');
+INSERT INTO Transactions VALUES ('4456', '3529');
+INSERT INTO Transactions VALUES ('4457', '3529');
+
+INSERT INTO Transactions VALUES ('4457', '3524');
+INSERT INTO Transactions VALUES ('4457', '3526');
+INSERT INTO Transactions VALUES ('4457', '3528');
+
+
 INSERT INTO DeliversTo VALUES ('5380', '1288', 'V6E 4R3');
 INSERT INTO DeliversTo VALUES ('5381', '1104', 'V3J 2M8');
 INSERT INTO DeliversTo VALUES ('5382', '2053', 'V6T 1Z2');
 INSERT INTO DeliversTo VALUES ('5383', '8800', 'V3J 7X5');
 INSERT INTO DeliversTo VALUES ('5384', '300', 'V3H 2M5');
+
+INSERT INTO DeliversTo VALUES ('5383', '1288', 'V6E 4R3');
+INSERT INTO DeliversTo VALUES ('5384', '1104', 'V3J 2M8');
+INSERT INTO DeliversTo VALUES ('5384', '1288', 'V6E 4R3');
+INSERT INTO DeliversTo VALUES ('5380', '1104', 'V3J 2M8');
+
 
 INSERT INTO RequestsAddress VALUES ('1288', 'V6E 4R3', '4456');
 INSERT INTO RequestsAddress VALUES ('1104', 'V3J 2M8', '4457');

@@ -167,10 +167,56 @@ public class DatabaseConnectionHandler {
 		return result;
 	}
 	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
+	public ArrayList<OrderAnalysis> aggWithGroupbyQuery(BigDecimal minSubTotal) {
+		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
+		String queryStmt = "SELECT customerID, AVG(subtotal) FROM makesOrder GROUP BY customerID";
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"), rs.getBigDecimal("Subtotal"));
+				result.add(analysis);
+			}
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
 	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders
 	// 								and an average subtotal price of more than 50$
+	public int[] AggWithHavingQuery() {
+		ArrayList<int> result = new ArrayList<int>();
 
+		String queryStmt = "SELECT customerID FROM makesOrder GROUP BY customerID " +
+				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50;";
+
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				int customerID = rs.getInt("CustomerID");
+				result.add(customerID);
+			}
+
+			rs.close();
+			stmt.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
 
 	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
 	public int[] NestedAggregation() {

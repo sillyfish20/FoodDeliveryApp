@@ -49,7 +49,7 @@ public class DatabaseAppUI extends JFrame {
         JButton aggGroupBy = new JButton("Agg. Group By");
         JButton aggHaving = new JButton("Agg. Having");
         JButton nestedAggGroupBy = new JButton("Nested Agg. Group By");
-        JButton division = new JButton("DivisionUI");
+        JButton division = new JButton("Division");
         JButton display = new JButton("Display Table");
 
         // Add Action listener to each button that will display the new window

@@ -296,11 +296,12 @@ public class DatabaseConnectionHandler {
 
         try {
             Statement stmt = connection.createStatement();
+			System.out.println("Executing division query");
             ResultSet rs = stmt.executeQuery(queryStmt);
 
             while (rs.next()) {
 
-                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("OrderID"),
+                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
                         rs.getString("Cname"));
                 result.add(analysis);
             }

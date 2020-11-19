@@ -23,6 +23,7 @@ public class SelectionUI extends JFrame implements ActionListener {
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel selectionPanel = new JPanel();
         // set layout
         selectionPanel.setLayout(new GridBagLayout());

@@ -13,6 +13,7 @@ public class InsertUI extends JFrame {
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel insertPanel = new JPanel();
         insertPanel.setLayout(new BoxLayout(insertPanel, BoxLayout.PAGE_AXIS));
         insertPanel.setPreferredSize(new Dimension(300, 200));

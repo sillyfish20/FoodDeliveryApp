@@ -23,6 +23,7 @@ public class UpdateUI extends JFrame implements ActionListener {
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel updatePanel = new JPanel();
         // set layout
         updatePanel.setLayout(new GridBagLayout());

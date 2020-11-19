@@ -91,7 +91,24 @@ public class DatabaseConnectionHandler {
 
 	// TODO: implement update customer function
 	public void updateCustomer(int custID, String attr, String newValue) {
-		//
+		try {
+			PreparedStatement ps = Customer.getUpdateStatement(connection, custID, attr, newValue);
+
+			System.out.println("Executing update");
+			int rowCount = ps.executeUpdate();
+			if (rowCount == 0) {
+				System.out.println(WARNING_TAG + "CustomerID " + custID + " does not exist!");
+			}
+
+			connection.commit();
+
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			rollbackConnection();
+		}
+		System.out.println("Customer is updated");
 	}
 
 	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value

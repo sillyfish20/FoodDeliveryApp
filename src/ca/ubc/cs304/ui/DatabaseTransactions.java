@@ -28,8 +28,7 @@ public class DatabaseTransactions {
     }
 
     public void handleUpdate(int custID, String attr, String newValue) {
-        // TODO: call update in dbConnectionHandler
-        System.out.println("in handleUpdate()");
+        dbHandler.updateCustomer(custID, attr, newValue);
     }
 
     public void handleDisplay(String tableName) {

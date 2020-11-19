@@ -47,6 +47,25 @@ public class Customer extends AbstractTable {
         return ps;
     }
 
+    // TODO: create method that handles creating SQL statement for updating a tuple
+    public static PreparedStatement getUpdateStatement(Connection conn, int custID,
+                                                       String attr, String newValue) throws SQLException {
+        PreparedStatement ps;
+        try {
+            if (attr.equalsIgnoreCase("cName")) {
+                ps = conn.prepareStatement("UPDATE Customer SET Cname = ? WHERE CustomerID = ?");
+            } else {
+                ps = conn.prepareStatement("UPDATE Customer SET Email = ? WHERE CustomerID = ?");
+            }
+            ps.setString(1, newValue);
+            ps.setInt(2, custID);
+
+        } catch (SQLException e) {
+            throw e;
+        }
+        return ps;
+    }
+
     public int getCustomerID() { return this.customerID; }
 
     public String getCustomerName() { return this.cName; }

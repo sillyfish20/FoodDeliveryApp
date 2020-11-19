@@ -201,7 +201,32 @@ public class DatabaseConnectionHandler {
 
 	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order
 
+    public ArrayList<CustomerAnalysis> divisionQuery(BigDecimal minSubTotal) {
+        ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
+        String queryStmt = "SELECT DISTINCT c.customerID, c.cname FROM customer c WHERE NOT EXISTS " +
+                "((SELECT restaurantID FROM managesRestaurant) MINUS (SELECT r.restaurantID FROM requestsOrder r, " +
+                "makesOrder m WHERE r.orderID=m.orderID AND m.customerID=c.customerID))";
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryStmt);
+
+            while (rs.next()) {
+
+                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("OrderID"),
+                        rs.getString("Cname"));
+                result.add(analysis);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result;
+    }
 
 
 

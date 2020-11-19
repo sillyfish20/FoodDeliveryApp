@@ -138,6 +138,7 @@ public class DatabaseConnectionHandler {
 
 
 	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
+	// returns a list of CustomerAnalysis objects that contain the customerID and customerName of users that match query
 	public ArrayList<CustomerAnalysis> projectionJoinQuery(BigDecimal minSubTotal) {
 		ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
@@ -188,8 +189,8 @@ public class DatabaseConnectionHandler {
 	}
 	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders
 	// 								and an average subtotal price of more than 50$
-	public int[] AggWithHavingQuery() {
-		ArrayList<int> result = new ArrayList<int>();
+	public ArrayList<Integer> AggWithHavingQuery() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		String queryStmt = "SELECT customerID FROM makesOrder GROUP BY customerID " +
 				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50;";

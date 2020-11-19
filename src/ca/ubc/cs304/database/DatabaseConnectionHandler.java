@@ -83,9 +83,10 @@ public class DatabaseConnectionHandler {
 			ps.close();
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			rollbackConnection();
 		}
-		System.out.println("dbConnHandler handles deleteDriver()");
+		System.out.println("Driver and their vehicle is deleted");
 	}
 
 	// TODO: implement update customer function

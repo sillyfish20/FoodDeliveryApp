@@ -9,20 +9,20 @@ public class Customer extends AbstractTable {
     private final String cName;
     private final String email;
     private final String paymentInfo;
-    private final int points;
     private final Date trialStartDate;
     private final int membershipLevel;
+    private final int points;
 
     public Customer(int customerID, String cName, String email,
-                    String paymentInfo, int points, Date trialStartDate,
-                    int membershipLevel) {
+                    String paymentInfo, Date trialStartDate,
+                    int membershipLevel, int points) {
         this.customerID = customerID;
         this.cName  = cName;
         this.email = email;
         this.paymentInfo = paymentInfo;
-        this.points = points;
         this.trialStartDate = trialStartDate;
         this.membershipLevel = membershipLevel;
+        this.points = points;
     }
 
     // TODO: Create method that handles creating SQL statements
@@ -35,10 +35,10 @@ public class Customer extends AbstractTable {
             ps.setString(3, custTable.getEmail());
             ps.setString(4, custTable.getPaymentInfo());
             ps.setNull(4, Types.CHAR);
-            ps.setInt(5, custTable.getPoints());
             // set TrialStartDate to Null
-            ps.setNull(6, Types.DATE);
-            ps.setInt(7, custTable.getMembershipLevel());
+            ps.setNull(5, Types.DATE);
+            ps.setInt(6, custTable.getMembershipLevel());
+            ps.setInt(7, custTable.getPoints());
 
             System.out.println("Preparing SQL statement");
         } catch(SQLException e) {

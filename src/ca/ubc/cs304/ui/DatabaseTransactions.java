@@ -39,13 +39,12 @@ public class DatabaseTransactions {
     }
 
     public ArrayList<OrderAnalysis> handleSelectionQuery(BigDecimal minSubTotal) {
-        ArrayList<OrderAnalysis> results = dbHandler.selectionQuery(minSubTotal);
-        System.out.println("returning selection query results");
-        return results;
+        return dbHandler.selectionQuery(minSubTotal);
     }
 
-    public void handleProjJoinQuery() {
+    public void handleProjJoinQuery(BigDecimal minSubTotal) {
         // TODO: call corresponding method in dbConnectionHandler
+        dbHandler.projectionJoinQuery(minSubTotal);
     }
 
     public void handleAggrGroupByQuery() {

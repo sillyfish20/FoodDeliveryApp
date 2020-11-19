@@ -246,9 +246,9 @@ public class DatabaseConnectionHandler {
 		return result;
 	}
 
-	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order
+	//TODO: DIVISION: Find customers who have ordered from all restaurants
 
-    public ArrayList<CustomerAnalysis> divisionQuery(BigDecimal minSubTotal) {
+    public ArrayList<CustomerAnalysis> divisionQuery() {
         ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
         String queryStmt = "SELECT DISTINCT c.customerID, c.cname FROM customer c WHERE NOT EXISTS " +

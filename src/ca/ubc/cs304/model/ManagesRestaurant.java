@@ -1,6 +1,8 @@
 package ca.ubc.cs304.model;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ManagesRestaurant extends AbstractTable {
     private final int restaurantID;
@@ -21,6 +23,18 @@ public class ManagesRestaurant extends AbstractTable {
         this.postalCode = postalCode;
         this.cuisineType = cuisineType;
         this.joinDate = joinDate;
+    }
+
+    public static Object[] getManagesRestRows(ResultSet rs) throws SQLException {
+        int restaurantID = rs.getInt("RestaurantID");
+        int vendorID = rs.getInt("VendorID");
+        String rName = rs.getString("Rname");
+        String unitNum = rs.getString("UnitNum");
+        String postalCode = rs.getString("PostalCode");
+        String cuisineType = rs.getString("CuisineType");
+        Date joinDate = rs.getDate("JoinDate");
+        Object[] rows = {restaurantID, vendorID, rName, unitNum, postalCode, cuisineType, joinDate};
+        return rows;
     }
 
     public int getRestaurantID() { return this.restaurantID; }

@@ -4,6 +4,7 @@ import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.OrderAnalysis;
 
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -31,8 +32,8 @@ public class DatabaseTransactions {
         dbHandler.updateCustomer(custID, attr, newValue);
     }
 
-    public void handleDisplay(String tableName) {
-        // TODO: call displayTable in dbConnectionHandler
+    public DefaultTableModel handleDisplay(String tableName) {
+        return dbHandler.displayTable(tableName);
     }
 
     public ArrayList<OrderAnalysis> handleSelectionQuery(BigDecimal minSubTotal) {

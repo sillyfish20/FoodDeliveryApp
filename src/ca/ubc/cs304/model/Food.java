@@ -1,6 +1,8 @@
 package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Food extends AbstractTable {
     private final int foodID;
@@ -13,6 +15,15 @@ public class Food extends AbstractTable {
         this.fName = fName;
         this.price = price;
         this.type = type;
+    }
+
+    public static Object[] getFoodRow(ResultSet rs) throws SQLException {
+        int foodID = rs.getInt("FoodID");
+        String fName = rs.getString("Fname");
+        BigDecimal price = rs.getBigDecimal("Price");
+        String type = rs.getString("Type");
+        Object[] rows = {foodID, fName, price, type};
+        return rows;
     }
 
     public int getFoodID() { return this.foodID; }

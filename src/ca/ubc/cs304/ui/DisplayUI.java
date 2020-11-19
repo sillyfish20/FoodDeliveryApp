@@ -3,11 +3,13 @@ package ca.ubc.cs304.ui;
 import ca.ubc.cs304.controller.FoodDeliveryApp;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DisplayUI extends JFrame implements ActionListener {
+    private static final int TABLE_COLUMN_COUNT = 6;
     private JPanel container;
     private JComboBox tableDropDown;
     private JPanel tablePanel;
@@ -15,14 +17,15 @@ public class DisplayUI extends JFrame implements ActionListener {
     public DisplayUI() {
         super("Display Tables");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(500, 500));
+        container.setPreferredSize(new Dimension(510, 400));
     }
 
     public void showFrame() {
+        container.removeAll();
         JPanel displayPanel = new JPanel();
         // set layout
         displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.PAGE_AXIS));
-        displayPanel.setPreferredSize(new Dimension(500, 500));
+        displayPanel.setPreferredSize(new Dimension(300, 100));
         displayPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         // set labels, fields, buttons
         JLabel displayLabel = new JLabel("Select table to display:");
@@ -35,25 +38,14 @@ public class DisplayUI extends JFrame implements ActionListener {
         tablePanel = new JPanel();
         displayButton.addActionListener(this);
 
-        // add formatting and add components to panel
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-        //gbc.insets = new Insets(20, 0,0,0);
+        // add add components to panel
         displayPanel.add(displayLabel);
-//        gbc.gridx = 0;
-//        gbc.gridy = 1;
-        //gbc.insets.top = 10;
         displayPanel.add(tableDropDown);
-//        gbc.gridx = 0;
-//        gbc.gridy = 2;
-        //gbc.insets.top = 30;
         displayPanel.add(displayButton);
-        displayPanel.add(tablePanel);
 
         // Display the frame
         container.add(displayPanel);
+        container.add(tablePanel);
         this.add(container);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
@@ -63,14 +55,26 @@ public class DisplayUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // get the selected table from table drop down
-        String table = (String) tableDropDown.getSelectedItem();
-        // send the SELECT * query for the table
-        FoodDeliveryApp.dbTransactions.handleDisplay(table);
-        // receive the table data and display it
-        displayTable();
+        System.out.println("Display button clicked!");
+        String selectedTable = (String) tableDropDown.getSelectedItem();
+        DefaultTableModel tableModel = FoodDeliveryApp.dbTransactions.handleDisplay(selectedTable);
+        displayTable(tableModel);
     }
 
-    private void displayTable() {
+    private void displayTable(DefaultTableModel tableModel) {
         // display the table with retrieved data
+        tablePanel.removeAll();
+
+        JTable table = new JTable(tableModel);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        if (table.getColumnCount() <= TABLE_COLUMN_COUNT) {
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        }
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(500, 200));
+
+        tablePanel.add(scrollPane);
+        container.revalidate();
+        container.repaint();
     }
 }

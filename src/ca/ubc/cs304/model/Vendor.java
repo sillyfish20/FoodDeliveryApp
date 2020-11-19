@@ -1,16 +1,29 @@
 package ca.ubc.cs304.model;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Vendor extends AbstractTable {
     private final int vendorId;
     private final String vendorName;
     private final String paymentInfo;
-    private final int monthlyFee;
+    private final BigDecimal monthlyFee;
 
-    public Vendor(int vendorId, String vendorName, String paymentInfo, int monthlyFee) {
+    public Vendor(int vendorId, String vendorName, String paymentInfo, BigDecimal monthlyFee) {
         this.vendorId = vendorId;
         this.vendorName = vendorName;
         this.paymentInfo = paymentInfo;
         this.monthlyFee = monthlyFee;
+    }
+
+    public static Object[] getVendorRows(ResultSet rs) throws SQLException {
+        int vendorId = rs.getInt("VendorID");
+        String vendorName = rs.getString("Vname");
+        String paymentInfo = rs.getString("PaymentInfo");
+        BigDecimal monthlyFee = rs.getBigDecimal("MonthlyFee");
+        Object[] rows = {vendorId, vendorName, paymentInfo, monthlyFee};
+        return rows;
     }
 
     public int getVendorID() {
@@ -23,5 +36,5 @@ public class Vendor extends AbstractTable {
 
     public String getPaymentInfo() { return paymentInfo; }
 
-    public int getMonthlyFee() { return monthlyFee; }
+    public BigDecimal getMonthlyFee() { return monthlyFee; }
 }

@@ -3,6 +3,7 @@ package ca.ubc.cs304.database;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
@@ -10,6 +11,7 @@ import ca.ubc.cs304.model.Customer;
 import ca.ubc.cs304.model.OrderAnalysis;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * This class handles all database related transactions
@@ -89,7 +91,6 @@ public class DatabaseConnectionHandler {
 		System.out.println("Driver and their vehicle is deleted");
 	}
 
-	// TODO: implement update customer function
 	public void updateCustomer(int custID, String attr, String newValue) {
 		try {
 			PreparedStatement ps = Customer.getUpdateStatement(connection, custID, attr, newValue);
@@ -111,6 +112,44 @@ public class DatabaseConnectionHandler {
 		System.out.println("Customer is updated");
 	}
 
+	// TODO: implement display table function
+	public DefaultTableModel displayTable(String table) {
+		DefaultTableModel tableModel = new DefaultTableModel();
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + table);
+
+			System.out.println("Executing display table");
+			ResultSet rs = ps.executeQuery();
+
+			// get the column names
+			ResultSetMetaData rsMetaData = rs.getMetaData();
+			int numColumns = rsMetaData.getColumnCount();
+
+			// add columns to the table model
+			for (int i = 1; i <= numColumns; i++) {
+				String columnName = rsMetaData.getColumnName(i);
+				tableModel.addColumn(columnName);
+			}
+
+			int rowNum = 0;
+			while (rs.next()) {
+				// for each column, add data to each cell
+				Object[] rowData = AbstractTable.getTableRowData(table, rs);
+				tableModel.insertRow(rowNum, rowData);
+				rowNum++;
+			}
+
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			rollbackConnection();
+		}
+		System.out.println("Display table query has been executed");
+		return tableModel;
+	}
+
 	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
 	// returns a list of OrderAnalysis objects that contain the orderID and subTotal of the users that match the query
 	// the UI will handle displaying the results
@@ -119,7 +158,7 @@ public class DatabaseConnectionHandler {
 
 		try {
 			PreparedStatement ps = connection.prepareStatement("SELECT OrderID, Subtotal FROM MakesOrder WHERE " +
-					"Subtotal > ?");
+					"Subtotal >= ?");
 			ps.setBigDecimal(1, minSubTotal);
 			ResultSet rs = ps.executeQuery();
 
@@ -135,8 +174,8 @@ public class DatabaseConnectionHandler {
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
-
-		return result; //.toArray(new OrderAnalysis[result.size()]);
+		System.out.println("Selection query has been executed");
+		return result;
 	}
 
 

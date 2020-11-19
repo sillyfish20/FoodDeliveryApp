@@ -42,9 +42,9 @@ public class DatabaseTransactions {
         return dbHandler.selectionQuery(minSubTotal);
     }
 
-    public void handleProjJoinQuery(BigDecimal minSubTotal) {
+    public ArrayList<CustomerAnalysis> handleProjJoinQuery(BigDecimal minSubTotal) {
         // TODO: call corresponding method in dbConnectionHandler
-        dbHandler.projectionJoinQuery(minSubTotal);
+        return dbHandler.projectionJoinQuery(minSubTotal);
     }
 
     public void handleAggrGroupByQuery() {

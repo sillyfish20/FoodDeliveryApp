@@ -192,7 +192,7 @@ INSERT INTO Food VALUES ('2237', 'Sushi Big Party', '150.00', 'Main Dish');
 INSERT INTO Food VALUES ('2238', 'Coffee Carafe', '50.00', 'Drink');
 INSERT INTO Food VALUES ('2239', 'Kenya AA Hand Drip', '10.00', 'Drink');
 INSERT INTO Food VALUES ('2240', 'Black Forest Cake', '60.00', 'Dessert');
-INSERT INTO Food VALUES ('2241', 'Black Forest Cake', '15.00', 'Main Dish');
+INSERT INTO Food VALUES ('2241', 'Chicken Wrap Combo', '15.00', 'Main Dish');
 
 
 INSERT INTO Drivers VALUES ('5380', '1827937', 'Lucy Shee', 1);

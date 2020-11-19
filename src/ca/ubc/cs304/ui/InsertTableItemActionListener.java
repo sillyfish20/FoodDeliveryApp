@@ -60,7 +60,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             // do this if have time lol
         }
 
-        // add new attribute fields
+        // repaint the panel
         attrPanel.revalidate();
         attrPanel.repaint();
         attrPanel.getParent().revalidate();
@@ -84,6 +84,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
         JLabel membershipLevelLabel = new JLabel("Membership Level: ");
 
         // layout components using the GridBag layout manager
+        attrPanel.setPreferredSize(new Dimension(300, 150));
         attrPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -132,7 +133,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             String email = emailText.getText();
 
             customer = new Customer(custID, custName, email,
-                    null, 0, null, 0);
+                    null, null, 0, 0);
             System.out.println("Creating Customer object");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Customer ID should be an integer!",

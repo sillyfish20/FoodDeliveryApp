@@ -8,8 +8,12 @@ import javax.swing.border.Border;
 
 public class DatabaseAppUI extends JFrame {
     private JPanel container;
-    private InsertUI insertUI = null;
-    private DeleteUI deleteUI = null;
+    private InsertUI insertUI;
+    private DeleteUI deleteUI;
+    private UpdateUI updateUI;
+    private DisplayUI displayUI;
+    private JoinUI joinUI;
+    private SelectionUI selectionUI;
 
     public DatabaseAppUI() {
         super("Food Delivery App");
@@ -17,6 +21,10 @@ public class DatabaseAppUI extends JFrame {
         container.setPreferredSize(new Dimension(400, 300));
         insertUI = new InsertUI();
         deleteUI = new DeleteUI();
+        updateUI = new UpdateUI();
+        displayUI = new DisplayUI();
+        joinUI = new JoinUI();
+        selectionUI = new SelectionUI();
     }
 
     /**
@@ -35,7 +43,7 @@ public class DatabaseAppUI extends JFrame {
         JButton delete = new JButton("Delete");
         JButton update = new JButton("Update");
         JButton select = new JButton("Select");
-        JButton join = new JButton("Join");
+        JButton join = new JButton("Join/Project");
         JButton aggGroupBy = new JButton("Agg. Group By");
         JButton aggHaving = new JButton("Agg. Having");
         JButton nestedAggGroupBy = new JButton("Nested Agg. Group By");
@@ -53,6 +61,30 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteUI.showFrame();
+            }
+        });
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateUI.showFrame();
+            }
+        });
+        display.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayUI.showFrame();
+            }
+        });
+        join.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                joinUI.showFrame();
+            }
+        });
+        select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectionUI.showFrame();
             }
         });
 

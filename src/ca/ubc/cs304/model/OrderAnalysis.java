@@ -1,21 +1,23 @@
 package ca.ubc.cs304.model;
 
+import java.math.BigDecimal;
+
 /**
- * The intent for this class is to update/store information about a single branch
+ * The intent for this class is to store the values we receive from the database
  */
 public class OrderAnalysis {
-    public int customerID;
-    public double subTotal; /// how do we make this compatible with the decimal with set criteria????
+    private int orderID;
+    private BigDecimal subTotal;
 
-    public OrderAnalysis(int customerID, float subTotal) {
-        this.customerID = customerID;
+    public OrderAnalysis(int customerID, BigDecimal subTotal) {
+        this.orderID = customerID;
         this.subTotal = subTotal;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getOrderID() {
+        return orderID;
     }
 
-    public int getsubTotal() { return subTotal;}
+    public BigDecimal getSubTotal() { return subTotal;}
 
 }

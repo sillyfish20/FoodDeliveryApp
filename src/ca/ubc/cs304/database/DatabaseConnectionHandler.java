@@ -1,11 +1,13 @@
 package ca.ubc.cs304.database;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
 import ca.ubc.cs304.model.AbstractTable;
 import ca.ubc.cs304.model.BranchModel;
 import ca.ubc.cs304.model.Customer;
+import ca.ubc.cs304.model.OrderAnalysis;
 
 import javax.swing.*;
 
@@ -65,12 +67,12 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	// DELETE: deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
-			ps.setInt(1, driverId);
+			ps.setInt(1, driverID);
 
+			System.out.println("Executing delete");
 			int rowCount = ps.executeUpdate();
 			if (rowCount == 0) {
 				System.out.println(WARNING_TAG + " Driver " + driverID + " does not exist!");
@@ -81,38 +83,60 @@ public class DatabaseConnectionHandler {
 			ps.close();
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			rollbackConnection();
 		}
-		System.out.println("dbConnHandler handles deleteDriver()");
+		System.out.println("Driver and their vehicle is deleted");
+	}
+
+	// TODO: implement update customer function
+	public void updateCustomer(int custID, String attr, String newValue) {
+		try {
+			PreparedStatement ps = Customer.getUpdateStatement(connection, custID, attr, newValue);
+
+			System.out.println("Executing update");
+			int rowCount = ps.executeUpdate();
+			if (rowCount == 0) {
+				System.out.println(WARNING_TAG + "CustomerID " + custID + " does not exist!");
+			}
+
+			connection.commit();
+
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			rollbackConnection();
+		}
+		System.out.println("Customer is updated");
 	}
 
 	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
-	public OrderAnalysis[] SelectionQuery(double minSubTotal) {
-		ArrayList<OrderAnalysis> result = new ArrayList<OrderAnalysis>();
-
-		String queryStmt = "SELECT orderID, subtotal FROM MakesOrder WHERE subtotal > " + String.valueof(minSubTotal);
+	// returns a list of OrderAnalysis objects that contain the orderID and subTotal of the users that match the query
+	// the UI will handle displaying the results
+	public ArrayList<OrderAnalysis> selectionQuery(BigDecimal minSubTotal) {
+		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
 		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(queryStmt);
+			PreparedStatement ps = connection.prepareStatement("SELECT OrderID, Subtotal FROM MakesOrder WHERE " +
+					"Subtotal > ?");
+			ps.setBigDecimal(1, minSubTotal);
+			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("CustomerID"), rs.getDecimal("Subtotal"));
-				/////// how deal with decimal vs double? decimal is for sql and double is for java????
 
-
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"),
+													rs.getBigDecimal("Subtotal"));
 				result.add(analysis);
 			}
 
 			rs.close();
-			stmt.close();
-		}
-
-		catch (SQLException e) {
+			ps.close();
+		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 
-		return result.toArray(new OrderAnalysis[result.size()]);
+		return result; //.toArray(new OrderAnalysis[result.size()]);
 	}
 
 
@@ -273,7 +297,10 @@ public class DatabaseConnectionHandler {
 				1234568);
 		insertBranch(branch2);
 	}
-	
+
+	private void insertBranch(BranchModel branch2) {
+	}
+
 	private void dropBranchTableIfExists() {
 		try {
 			Statement stmt = connection.createStatement();

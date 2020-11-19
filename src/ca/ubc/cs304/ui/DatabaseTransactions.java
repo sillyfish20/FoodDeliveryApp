@@ -2,6 +2,10 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.model.AbstractTable;
+import ca.ubc.cs304.model.OrderAnalysis;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class DatabaseTransactions {
     private DatabaseConnectionHandler dbHandler;
@@ -23,14 +27,37 @@ public class DatabaseTransactions {
         dbHandler.deleteDriver(id);
     }
 
-    public void handleUpdate(AbstractTable tableModel) {
-
+    public void handleUpdate(int custID, String attr, String newValue) {
+        dbHandler.updateCustomer(custID, attr, newValue);
     }
 
     public void handleDisplay(String tableName) {
-
+        // TODO: call displayTable in dbConnectionHandler
     }
 
+    public ArrayList<OrderAnalysis> handleSelectionQuery(BigDecimal minSubTotal) {
+        ArrayList<OrderAnalysis> results = dbHandler.selectionQuery(minSubTotal);
+        System.out.println("returning selection query results");
+        return results;
+    }
 
-    // TODO: Add more methods for handling sending queries to databaseConnectionHandler?
+    public void handleProjJoinQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleAggrGroupByQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleAggrHavingQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleNestedAggrGroupByQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
+
+    public void handleDivisionQuery() {
+        // TODO: call corresponding method in dbConnectionHandler
+    }
 }

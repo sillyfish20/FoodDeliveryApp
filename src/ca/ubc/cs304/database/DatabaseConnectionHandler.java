@@ -136,12 +136,36 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 
-		return result; //.toArray(new OrderAnalysis[result.size()]);
+		return result;
 	}
 
 
 	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
+	public ArrayList<CustomerAnalysis> projectionJoinQuery(BigDecimal minSubTotal) {
+		ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT DISTINCT c.customerID, c.cname " +
+					"FROM customer c, makesOrder m " +
+					"WHERE c.customerID=m.customerID AND " +
+					"m.subTotal > ?");
+			ps.setBigDecimal(1, minSubTotal);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
+						rs.getString("Cname"));
+				result.add(analysis);
+			}
+
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
 	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
 
 	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders

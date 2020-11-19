@@ -5,10 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import ca.ubc.cs304.model.AbstractTable;
-import ca.ubc.cs304.model.BranchModel;
-import ca.ubc.cs304.model.Customer;
-import ca.ubc.cs304.model.OrderAnalysis;
+import ca.ubc.cs304.model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -180,18 +177,142 @@ public class DatabaseConnectionHandler {
 
 
 	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
+	// returns a list of CustomerAnalysis objects that contain the customerID and customerName of users that match query
+	public ArrayList<CustomerAnalysis> projectionJoinQuery(BigDecimal minSubTotal) {
+		ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT DISTINCT c.customerID, c.cname " +
+					"FROM customer c, makesOrder m " +
+					"WHERE c.customerID=m.customerID AND " +
+					"m.subTotal > ?");
+			ps.setBigDecimal(1, minSubTotal);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
+						rs.getString("Cname"));
+				result.add(analysis);
+			}
+
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
 	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
+	public ArrayList<OrderAnalysis> aggWithGroupbyQuery(BigDecimal minSubTotal) {
+		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
+		String queryStmt = "SELECT customerID, AVG(subtotal) FROM makesOrder GROUP BY customerID";
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"), rs.getBigDecimal("Subtotal"));
+				result.add(analysis);
+			}
+
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
 	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders
 	// 								and an average subtotal price of more than 50$
+	public ArrayList<Integer> AggWithHavingQuery() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+
+		String queryStmt = "SELECT customerID FROM makesOrder GROUP BY customerID " +
+				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50;";
 
 
-	//TODO: NESTED AGGREGATION WITH GROUPBY:Find customers who made orders with the largest avg subtotal
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
 
-	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order
+			while (rs.next()) {
+				int customerID = rs.getInt("CustomerID");
+				result.add(customerID);
+			}
 
+			rs.close();
+			stmt.close();
+		}
 
+		catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
+
+	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
+	public ArrayList<Integer> NestedAggregation() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+
+		String queryStmt = "(WITH temp(avgSTotal) as " +
+			"(SELECT AVG(subTotal) as avgSubTotal FROM makesOrder GROUP BY customerID)) " +
+			"(SELECT customerID FROM makesOrder GROUP BY customerID " +
+			"Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp))";
+		/////// IS THIS VIEWS IMPLEMENTATION OK???
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				int customerID = rs.getInt("CustomerID");
+				result.add(customerID);
+			}
+
+			rs.close();
+			stmt.close();
+		}
+
+		catch (SQLException e) {
+		System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result;
+	}
+
+	//TODO: DIVISION: Find customers who have ordered from all restaurants
+
+    public ArrayList<CustomerAnalysis> divisionQuery() {
+        ArrayList<CustomerAnalysis> result = new ArrayList<>();
+
+        String queryStmt = "SELECT DISTINCT c.customerID, c.cname FROM customer c WHERE NOT EXISTS " +
+                "((SELECT restaurantID FROM managesRestaurant) MINUS (SELECT r.restaurantID FROM requestsOrder r, " +
+                "makesOrder m WHERE r.orderID=m.orderID AND m.customerID=c.customerID))";
+
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(queryStmt);
+
+            while (rs.next()) {
+
+                CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("OrderID"),
+                        rs.getString("Cname"));
+                result.add(analysis);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result;
+    }
 
 
 

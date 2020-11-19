@@ -2,6 +2,8 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.model.AbstractTable;
+import ca.ubc.cs304.model.Customer;
+import ca.ubc.cs304.model.CustomerAnalysis;
 import ca.ubc.cs304.model.OrderAnalysis;
 
 import javax.swing.table.DefaultTableModel;
@@ -58,7 +60,10 @@ public class DatabaseTransactions {
         // TODO: call corresponding method in dbConnectionHandler
     }
 
-    public void handleDivisionQuery() {
+    public ArrayList<CustomerAnalysis> handleDivisionQuery() {
         // TODO: call corresponding method in dbConnectionHandler
+        ArrayList<CustomerAnalysis> results = dbHandler.divisionQuery();
+        System.out.println("Returning division query results");
+        return results;
     }
 }

@@ -14,6 +14,7 @@ public class DatabaseAppUI extends JFrame {
     private DisplayUI displayUI;
     private JoinUI joinUI;
     private SelectionUI selectionUI;
+    private DivisionUI divisionUI;
 
     public DatabaseAppUI() {
         super("Food Delivery App");
@@ -25,12 +26,13 @@ public class DatabaseAppUI extends JFrame {
         displayUI = new DisplayUI();
         joinUI = new JoinUI();
         selectionUI = new SelectionUI();
+        divisionUI = new DivisionUI();
     }
 
     /**
      * Displays a window that contains buttons that will open another window
      * Insert, Delete, Update, Display, Selection, Projection, Join, Agg. Group By, Agg. Having,
-     * Nested Agg. Group By, Division
+     * Nested Agg. Group By, DivisionUI
      * 5 rows 2 columns
      */
     public void showFrame() {
@@ -47,7 +49,7 @@ public class DatabaseAppUI extends JFrame {
         JButton aggGroupBy = new JButton("Agg. Group By");
         JButton aggHaving = new JButton("Agg. Having");
         JButton nestedAggGroupBy = new JButton("Nested Agg. Group By");
-        JButton division = new JButton("Division");
+        JButton division = new JButton("DivisionUI");
         JButton display = new JButton("Display Table");
 
         // Add Action listener to each button that will display the new window
@@ -85,6 +87,12 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectionUI.showFrame();
+            }
+        });
+        division.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                divisionUI.showFrame();
             }
         });
 

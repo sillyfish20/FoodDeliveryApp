@@ -14,18 +14,19 @@ public class SelectionUI extends JFrame implements ActionListener {
     private static final int TEXT_FIELD_WIDTH = 10;
     private JPanel container;
     private JTextField subTotalField;
+    private JPanel tablePanel;
 
     public SelectionUI() {
         super("Selection Query");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(300, 300));
+        container.setPreferredSize(new Dimension(350, 375));
     }
 
     public void showFrame() {
         JPanel selectionPanel = new JPanel();
         // set layout
         selectionPanel.setLayout(new GridBagLayout());
-        selectionPanel.setPreferredSize(new Dimension(300, 300));
+        selectionPanel.setPreferredSize(new Dimension(300, 200));
         selectionPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         // add labels, fields, button
         String text = "Find orderID and subtotals for orders with a subtotal greater than:";
@@ -43,6 +44,7 @@ public class SelectionUI extends JFrame implements ActionListener {
         subTotalField = new JTextField(TEXT_FIELD_WIDTH);
         JButton submitQuery = new JButton("Submit Query");
         submitQuery.addActionListener(this);
+        tablePanel = new JPanel();
 
         // add formatting and add components to panel
         GridBagConstraints gbc = new GridBagConstraints();
@@ -63,6 +65,7 @@ public class SelectionUI extends JFrame implements ActionListener {
         selectionPanel.add(submitQuery, gbc);
         // display the frame
         container.add(selectionPanel);
+        container.add(tablePanel);
         this.add(container);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
@@ -72,11 +75,28 @@ public class SelectionUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Submit Query button clicked!");
-        // get the value from the text box
         try {
+            tablePanel.removeAll();
             BigDecimal subTotalValue = new BigDecimal(subTotalField.getText());
             ArrayList<OrderAnalysis> results = FoodDeliveryApp.dbTransactions.handleSelectionQuery(subTotalValue);
-
+            // display the data
+            String[] columnNames = {"orderID", "Subtotal"};
+            Object[][] data = new Object[results.size()][];
+            for (int i = 0; i < results.size(); i++) {
+                String orderIDData = String.valueOf(results.get(i).getOrderID());
+                String subTotalData = String.valueOf(results.get(i).getSubTotal());
+                String[] rowData = {orderIDData, subTotalData};
+                data[i] = rowData;
+            }
+            JTable table = new JTable(data, columnNames);
+            table.setBounds(30, 40, 200, 150);
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setPreferredSize(new Dimension(300, 150));
+            // table.setFillsViewportHeight(true);
+            tablePanel.add(scrollPane);
+            this.revalidate();
+            this.repaint();
+            ((JFrame) SwingUtilities.getRoot(container)).pack();
         } catch (NumberFormatException err) {
             JOptionPane.showMessageDialog(null, "The subtotal must be a number!",
                     "Error", JOptionPane.ERROR_MESSAGE);

@@ -37,8 +37,6 @@ public class DatabaseTransactions {
     }
 
     public ArrayList<OrderAnalysis> handleSelectionQuery(BigDecimal minSubTotal) {
-        // TODO: call corresponding method in dbConnectionHandler
-        System.out.println("in handleSelectionQuery()");
         ArrayList<OrderAnalysis> results = dbHandler.selectionQuery(minSubTotal);
         System.out.println("returning selection query results");
         return results;

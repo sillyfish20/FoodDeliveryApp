@@ -60,7 +60,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             // do this if have time lol
         }
 
-        // add new attribute fields
+        // repaint the panel
         attrPanel.revalidate();
         attrPanel.repaint();
         attrPanel.getParent().revalidate();

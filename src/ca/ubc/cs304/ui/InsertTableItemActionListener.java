@@ -133,7 +133,7 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             String email = emailText.getText();
 
             customer = new Customer(custID, custName, email,
-                    null, 0, null, 0);
+                    null, null, 0, 0);
             System.out.println("Creating Customer object");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Customer ID should be an integer!",

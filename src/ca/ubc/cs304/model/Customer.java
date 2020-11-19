@@ -66,6 +66,19 @@ public class Customer extends AbstractTable {
         return ps;
     }
 
+    // Gets the the data of the customer row in the result set
+    public static Object[] getTableRows(ResultSet rs) throws SQLException {
+        int customerID = rs.getInt("CustomerID");
+        String cName = rs.getString("Cname");
+        String email = rs.getString("Email");
+        String paymentInfo = rs.getString("PaymentInfo");
+        Date trialStartDate = rs.getDate("TrialStartDate");
+        int membershipLevel = rs.getInt("MembershipLevel");;
+        int points = rs.getInt("Points");
+        Object[] rows = {customerID, cName, email, paymentInfo, trialStartDate, membershipLevel, points};
+        return rows;
+    }
+
     public int getCustomerID() { return this.customerID; }
 
     public String getCustomerName() { return this.cName; }

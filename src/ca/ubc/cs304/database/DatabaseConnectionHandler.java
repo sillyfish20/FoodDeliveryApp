@@ -124,7 +124,35 @@ public class DatabaseConnectionHandler {
 	// 								and an average subtotal price of more than 50$
 
 
-	//TODO: NESTED AGGREGATION WITH GROUPBY:Find customers who made orders with the largest avg subtotal
+	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
+	public int[] NestedAggregation() {
+		ArrayList<int> result = new ArrayList<int>();
+
+		String queryStmt = "(WITH temp(avgSTotal) as " +
+			"(SELECT AVG(subTotal) as avgSubTotal FROM makesOrder GROUP BY customerID)) " +
+			"(SELECT customerID FROM makesOrder GROUP BY customerID " +
+			"Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp))";
+		/////// IS THIS VIEWS IMPLEMENTATION OK???
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(queryStmt);
+
+			while (rs.next()) {
+				int customerID = rs.getInt("CustomerID");
+				result.add(customerID);
+			}
+
+			rs.close();
+			stmt.close();
+		}
+
+		catch (SQLException e) {
+		System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+		}
+
+		return result.toArray(new int[result.size()]);
+	}
 
 	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order
 

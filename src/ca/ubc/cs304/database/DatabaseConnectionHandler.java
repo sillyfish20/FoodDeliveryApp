@@ -4,10 +4,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-import ca.ubc.cs304.model.AbstractTable;
-import ca.ubc.cs304.model.BranchModel;
-import ca.ubc.cs304.model.Customer;
-import ca.ubc.cs304.model.OrderAnalysis;
+import ca.ubc.cs304.model.*;
 
 import javax.swing.*;
 
@@ -219,8 +216,8 @@ public class DatabaseConnectionHandler {
 	}
 
 	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
-	public int[] NestedAggregation() {
-		ArrayList<int> result = new ArrayList<int>();
+	public ArrayList<Integer> NestedAggregation() {
+		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		String queryStmt = "(WITH temp(avgSTotal) as " +
 			"(SELECT AVG(subTotal) as avgSubTotal FROM makesOrder GROUP BY customerID)) " +
@@ -245,7 +242,7 @@ public class DatabaseConnectionHandler {
 		System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 
-		return result.toArray(new int[result.size()]);
+		return result;
 	}
 
 	//TODO: DIVISION: Find customers who have ordered from all restaurants that have fullfilled at least one order

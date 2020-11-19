@@ -67,13 +67,12 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-
-	// DELETE: deletes a driver given the driverID
 	public void deleteDriver(int driverID) {
 		try {
 			PreparedStatement ps = connection.prepareStatement("DELETE FROM drivers WHERE driverID = ?");
 			ps.setInt(1, driverID);
 
+			System.out.println("Executing delete");
 			int rowCount = ps.executeUpdate();
 			if (rowCount == 0) {
 				System.out.println(WARNING_TAG + " Driver " + driverID + " does not exist!");
@@ -89,6 +88,11 @@ public class DatabaseConnectionHandler {
 		System.out.println("dbConnHandler handles deleteDriver()");
 	}
 
+	// TODO: implement update customer function
+	public void updateCustomer(int custID, String attr, String newValue) {
+		//
+	}
+
 	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
 	// returns a list of OrderAnalysis objects that contain the orderID and subTotal of the users that match the query
 	// the UI will handle displaying the results
@@ -102,6 +106,7 @@ public class DatabaseConnectionHandler {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
+
 				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"),
 													rs.getBigDecimal("Subtotal"));
 				result.add(analysis);

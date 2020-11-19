@@ -5,9 +5,6 @@ import java.sql.SQLException;
 
 public abstract class AbstractTable {
     // abstract table model
-    String[] tables = {"Serves", "RestaurantLocation", "AreaCode", "Transactions", "Receipt", "RequestsOrder", "MakesOrder",
-            "PicksUpOrder", "DeliversTo", "OrderDestination", "RequestsAddress", "AddressDestination",
-            "MembershipInfo", "TrialRange"};
 
     public static Object[] getTableRowData(String table, ResultSet rs) throws SQLException {
         Object[] tableRow = {};
@@ -33,6 +30,46 @@ public abstract class AbstractTable {
             case "Serves":
                 tableRow = Serves.getServesRow(rs);
                 break;
+            case "RestaurantLocation":
+                tableRow = RestaurantLocation.getResLocationRow(rs);
+                break;
+            case "AreaCode":
+                tableRow = AreaCode.getAreaCodeRow(rs);
+                break;
+            case "Transactions":
+                tableRow = Transaction.getTransactionRow(rs);
+                break;
+            case "Receipt":
+                tableRow = Receipt.getReceiptRows(rs);
+                break;
+            case "RequestsOrder":
+                tableRow = RequestsOrder.getReqOrderRows(rs);
+                break;
+            case "MakesOrder":
+                tableRow = MakesOrder.getMakesOrderRows(rs);
+                break;
+            case "PicksUpOrder":
+                tableRow = PicksUpOrder.getPicksUpOrdRows(rs);
+                break;
+            case "DeliversTo":
+                tableRow = DeliversTo.getDelivToRows(rs);
+                break;
+            case "OrderDestination":
+                tableRow = OrderDestination.getOrderDestRows(rs);
+                break;
+            case "RequestsAddress":
+                tableRow = RequestsAddress.getReqAddressRows(rs);
+                break;
+            case "AddressDestination":
+                tableRow = AddressDestination.getAddDestRows(rs);
+                break;
+            case "MembershipInfo":
+                tableRow = MembershipInfo.getMemberInfoRows(rs);
+                break;
+            case "TrialRange":
+                tableRow = TrialRange.getTrialRangeRows(rs);
+                break;
+
         }
         return tableRow;
     }

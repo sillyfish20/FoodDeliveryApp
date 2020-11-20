@@ -3,8 +3,15 @@ package ca.ubc.cs304.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * An abstraction of a table such that any subtype can be used in place of it,
+ * mostly for the insert() method in DatabaseConnectionHandler
+ *
+ * Also contains additional static methods that help retrieve row data from the
+ * ResultSet depending on the table (used for displayTable() method in dbConnHandler)
+ */
+
 public abstract class AbstractTable {
-    // abstract table model
 
     public static Object[] getTableRowData(String table, ResultSet rs) throws SQLException {
         Object[] tableRow = {};
@@ -69,12 +76,11 @@ public abstract class AbstractTable {
             case "TrialRange":
                 tableRow = TrialRange.getTrialRangeRows(rs);
                 break;
-
         }
         return tableRow;
     }
 
-    // Helper for trimming strings retrieved from the result set
+    // static helper for trimming strings retrieved from the result set
     public static String stringTrimmer(String str) {
         if (str != null) {
             str = str.trim();

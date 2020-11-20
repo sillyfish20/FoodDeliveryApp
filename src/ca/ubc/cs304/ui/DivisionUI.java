@@ -1,9 +1,7 @@
 package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.controller.FoodDeliveryApp;
-import ca.ubc.cs304.model.Customer;
 import ca.ubc.cs304.model.CustomerAnalysis;
-import ca.ubc.cs304.model.OrderAnalysis;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,31 +68,26 @@ public class DivisionUI extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Submit Query button clicked!");
-        try {
-            tablePanel.removeAll();
-            ArrayList<CustomerAnalysis> results = FoodDeliveryApp.dbTransactions.handleDivisionQuery();
-            // display the data
-            String[] columnNames = {"CustomerID", "Cname"};
-            Object[][] data = new Object[results.size()][];
-            for (int i = 0; i < results.size(); i++) {
-                String customerIDData = String.valueOf(results.get(i).getCustomerID());
-                String cNameData = String.valueOf(results.get(i).getcName());
-                String[] rowData = {customerIDData, cNameData};
-                data[i] = rowData;
-            }
-            JTable table = new JTable(data, columnNames);
-            table.setBounds(30, 40, 200, 150);
-            JScrollPane scrollPane = new JScrollPane(table);
-            scrollPane.setPreferredSize(new Dimension(300, 150));
-            // table.setFillsViewportHeight(true);
-            tablePanel.add(scrollPane);
-            this.revalidate();
-            this.repaint();
-            ((JFrame) SwingUtilities.getRoot(container)).pack();
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "Something went wrong with the division query.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+        tablePanel.removeAll();
+        ArrayList<CustomerAnalysis> results = FoodDeliveryApp.dbTransactions.handleDivisionQuery();
+        // display the data
+        String[] columnNames = {"CustomerID", "Name"};
+        Object[][] data = new Object[results.size()][];
+        for (int i = 0; i < results.size(); i++) {
+            String customerIDData = String.valueOf(results.get(i).getCustomerID());
+            String cNameData = String.valueOf(results.get(i).getCName());
+            String[] rowData = {customerIDData, cNameData};
+            data[i] = rowData;
         }
+        JTable table = new JTable(data, columnNames);
+        table.setBounds(30, 40, 200, 150);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(300, 150));
+        // table.setFillsViewportHeight(true);
+        tablePanel.add(scrollPane);
+        this.revalidate();
+        this.repaint();
+        ((JFrame) SwingUtilities.getRoot(container)).pack();
 
     }
 }

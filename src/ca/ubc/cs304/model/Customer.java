@@ -3,6 +3,7 @@ package ca.ubc.cs304.model;
 import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Customer extends AbstractTable {
     private final int customerID;
@@ -69,12 +70,13 @@ public class Customer extends AbstractTable {
     // Gets the the data of the customer row in the result set
     public static Object[] getTableRows(ResultSet rs) throws SQLException {
         int customerID = rs.getInt("CustomerID");
-        String cName = rs.getString("Cname");
-        String email = rs.getString("Email");
-        String paymentInfo = rs.getString("PaymentInfo");
+        String cName = AbstractTable.stringTrimmer(rs.getString("Cname"));
+        String email = AbstractTable.stringTrimmer(rs.getString("Email"));
+        String paymentInfo = AbstractTable.stringTrimmer(rs.getString("PaymentInfo"));
         Date trialStartDate = rs.getDate("TrialStartDate");
         int membershipLevel = rs.getInt("MembershipLevel");;
         int points = rs.getInt("Points");
+
         Object[] rows = {customerID, cName, email, paymentInfo, trialStartDate, membershipLevel, points};
         return rows;
     }

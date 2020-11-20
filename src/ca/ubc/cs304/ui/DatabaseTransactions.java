@@ -55,8 +55,11 @@ public class DatabaseTransactions {
         // TODO: call corresponding method in dbConnectionHandler
     }
 
-    public void handleNestedAggrGroupByQuery() {
+    public ArrayList<Integer> handleNestedAggrGroupByQuery() {
         // TODO: call corresponding method in dbConnectionHandler
+
+        System.out.println("Returning nested aggregation with group by query results");
+        return dbHandler.nestedAggrGroupByQuery();
     }
 
     public ArrayList<CustomerAnalysis> handleDivisionQuery() {

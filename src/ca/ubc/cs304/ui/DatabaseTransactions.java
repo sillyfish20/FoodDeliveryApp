@@ -2,7 +2,6 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.model.AbstractTable;
-import ca.ubc.cs304.model.Customer;
 import ca.ubc.cs304.model.CustomerAnalysis;
 import ca.ubc.cs304.model.OrderAnalysis;
 
@@ -47,8 +46,9 @@ public class DatabaseTransactions {
         return dbHandler.projectionJoinQuery(minSubTotal);
     }
 
-    public void handleAggrGroupByQuery() {
+    public ArrayList<OrderAnalysis> handleAggrGroupByQuery() {
         // TODO: call corresponding method in dbConnectionHandler
+        return dbHandler.aggWithGroupbyQuery();
     }
 
     public void handleAggrHavingQuery() {

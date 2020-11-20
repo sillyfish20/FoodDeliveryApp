@@ -84,7 +84,7 @@ public class SelectionUI extends JFrame implements ActionListener {
             String[] columnNames = {"OrderID", "Subtotal"};
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
-                String orderIDData = String.valueOf(results.get(i).getOrderID());
+                String orderIDData = String.valueOf(results.get(i).getOrderCustomerID());
                 String subTotalData = String.valueOf(results.get(i).getSubTotal());
                 String[] rowData = {orderIDData, subTotalData};
                 data[i] = rowData;

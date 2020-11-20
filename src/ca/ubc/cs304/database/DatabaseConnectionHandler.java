@@ -206,7 +206,7 @@ public class DatabaseConnectionHandler {
 		return result;
 	}
 	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
-	public ArrayList<OrderAnalysis> aggWithGroupbyQuery(BigDecimal minSubTotal) {
+	public ArrayList<OrderAnalysis> aggWithGroupbyQuery() {
 		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
 		String queryStmt = "SELECT customerID, AVG(subtotal) FROM makesOrder GROUP BY customerID";
@@ -216,7 +216,8 @@ public class DatabaseConnectionHandler {
 			ResultSet rs = stmt.executeQuery(queryStmt);
 
 			while (rs.next()) {
-				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"), rs.getBigDecimal("Subtotal"));
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("customerID"),
+						rs.getBigDecimal("Subtotal"));
 				result.add(analysis);
 			}
 

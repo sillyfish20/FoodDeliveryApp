@@ -15,6 +15,7 @@ public class DatabaseAppUI extends JFrame {
     private JoinUI joinUI;
     private SelectionUI selectionUI;
     private DivisionUI divisionUI;
+    private NestedAggregationGroupByUI nestedAggregationGroupByUI;
 
     public DatabaseAppUI() {
         super("Food Delivery App");
@@ -27,6 +28,7 @@ public class DatabaseAppUI extends JFrame {
         joinUI = new JoinUI();
         selectionUI = new SelectionUI();
         divisionUI = new DivisionUI();
+        nestedAggregationGroupByUI = new NestedAggregationGroupByUI();
     }
 
     /**
@@ -93,6 +95,12 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 divisionUI.showFrame();
+            }
+        });
+        nestedAggGroupBy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nestedAggregationGroupByUI.showFrame();
             }
         });
 

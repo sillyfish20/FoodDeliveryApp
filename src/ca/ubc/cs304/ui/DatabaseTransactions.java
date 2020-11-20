@@ -46,8 +46,9 @@ public class DatabaseTransactions {
         return dbHandler.projectionJoinQuery(minSubTotal);
     }
 
-    public void handleAggrGroupByQuery() {
+    public ArrayList<OrderAnalysis> handleAggrGroupByQuery() {
         // TODO: call corresponding method in dbConnectionHandler
+        return dbHandler.aggWithGroupbyQuery();
     }
 
     public void handleAggrHavingQuery() {

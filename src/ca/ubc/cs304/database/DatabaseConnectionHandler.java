@@ -258,13 +258,12 @@ public class DatabaseConnectionHandler {
 	}
 
 	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
-	public ArrayList<Integer> NestedAggregation() {
+	public ArrayList<Integer> nestedAggrGroupByQuery() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
-		String queryStmt = "(WITH temp(avgSTotal) as " +
-			"(SELECT AVG(subTotal) as avgSubTotal FROM makesOrder GROUP BY customerID)) " +
-			"(SELECT customerID FROM makesOrder GROUP BY customerID " +
-			"Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp))";
+		String queryStmt = "WITH temp(avgSTotal) as (SELECT AVG(subTotal) as avgSubTotal FROM makesOrder " +
+                "GROUP BY customerID) SELECT customerID FROM makesOrder GROUP BY customerID " +
+                "Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp)";
 		/////// IS THIS VIEWS IMPLEMENTATION OK???
 
 		try {

@@ -111,6 +111,8 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 aggGroupByUI.showFrame();
+            }
+        });
 
         nestedAggGroupBy.addActionListener(new ActionListener() {
             @Override

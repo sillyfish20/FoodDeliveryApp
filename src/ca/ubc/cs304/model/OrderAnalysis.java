@@ -6,16 +6,16 @@ import java.math.BigDecimal;
  * The intent for this class is to store the values we receive from the database
  */
 public class OrderAnalysis {
-    private int orderID;
+    private int customerID;
     private BigDecimal subTotal;
 
     public OrderAnalysis(int customerID, BigDecimal subTotal) {
-        this.orderID = customerID;
+        this.customerID = customerID;
         this.subTotal = subTotal;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getOrderCustomerID() {
+        return customerID;
     }
 
     public BigDecimal getSubTotal() { return subTotal;}

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class DatabaseAppUI extends JFrame {
     private JPanel container;
@@ -16,6 +15,8 @@ public class DatabaseAppUI extends JFrame {
     private SelectionUI selectionUI;
     private DivisionUI divisionUI;
     private HavingUI havingUI;
+    private AggGroupByUI aggGroupByUI;
+    private NestedAggregationGroupByUI nestedAggregationGroupByUI;
 
     public DatabaseAppUI() {
         super("Food Delivery App");
@@ -29,6 +30,8 @@ public class DatabaseAppUI extends JFrame {
         selectionUI = new SelectionUI();
         divisionUI = new DivisionUI();
         havingUI = new HavingUI();
+        aggGroupByUI = new AggGroupByUI();
+        nestedAggregationGroupByUI = new NestedAggregationGroupByUI();
     }
 
     /**
@@ -101,6 +104,18 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 havingUI.showFrame();
+            }
+        });
+
+        aggGroupBy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aggGroupByUI.showFrame();
+
+        nestedAggGroupBy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nestedAggregationGroupByUI.showFrame();
             }
         });
 

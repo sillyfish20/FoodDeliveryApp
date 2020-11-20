@@ -206,17 +206,18 @@ public class DatabaseConnectionHandler {
 		return result;
 	}
 	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
-	public ArrayList<OrderAnalysis> aggWithGroupbyQuery(BigDecimal minSubTotal) {
+	public ArrayList<OrderAnalysis> aggWithGroupbyQuery() {
 		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
-		String queryStmt = "SELECT customerID, AVG(subtotal) FROM makesOrder GROUP BY customerID";
+		String queryStmt = "SELECT customerID, AVG(subtotal) as avgSubTotal FROM makesOrder GROUP BY customerID";
 
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(queryStmt);
 
 			while (rs.next()) {
-				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"), rs.getBigDecimal("Subtotal"));
+				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("customerID"),
+						rs.getBigDecimal("avgSubTotal"));
 				result.add(analysis);
 			}
 
@@ -258,13 +259,12 @@ public class DatabaseConnectionHandler {
 	}
 
 	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
-	public ArrayList<Integer> NestedAggregation() {
+	public ArrayList<Integer> nestedAggrGroupByQuery() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
-		String queryStmt = "(WITH temp(avgSTotal) as " +
-			"(SELECT AVG(subTotal) as avgSubTotal FROM makesOrder GROUP BY customerID)) " +
-			"(SELECT customerID FROM makesOrder GROUP BY customerID " +
-			"Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp))";
+		String queryStmt = "WITH temp(avgSTotal) as (SELECT AVG(subTotal) as avgSubTotal FROM makesOrder " +
+                "GROUP BY customerID) SELECT customerID FROM makesOrder GROUP BY customerID " +
+                "Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp)";
 		/////// IS THIS VIEWS IMPLEMENTATION OK???
 
 		try {

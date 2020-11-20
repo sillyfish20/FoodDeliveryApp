@@ -55,7 +55,7 @@ public class DatabaseAppUI extends JFrame {
         JButton insert = new JButton("Insert");
         JButton delete = new JButton("Delete");
         JButton update = new JButton("Update");
-        JButton select = new JButton("Select");
+        JButton selection = new JButton("Selection");
         JButton join = new JButton("Join/Project");
         JButton aggGroupBy = new JButton("Agg. Group By");
         JButton aggHaving = new JButton("Agg. Having");
@@ -94,7 +94,7 @@ public class DatabaseAppUI extends JFrame {
                 joinUI.showFrame();
             }
         });
-        select.addActionListener(new ActionListener() {
+        selection.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectionUI.showFrame();
@@ -129,7 +129,7 @@ public class DatabaseAppUI extends JFrame {
         controllerPanel.add(insert);
         controllerPanel.add(delete);
         controllerPanel.add(update);
-        controllerPanel.add(select);
+        controllerPanel.add(selection);
         controllerPanel.add(join);
         controllerPanel.add(aggGroupBy);
         controllerPanel.add(aggHaving);

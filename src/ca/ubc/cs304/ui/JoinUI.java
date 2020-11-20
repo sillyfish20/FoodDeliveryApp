@@ -19,7 +19,7 @@ public class JoinUI extends JFrame implements ActionListener {
     public JoinUI() {
         super("Join and Project");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(300, 375));
+        container.setPreferredSize(new Dimension(350, 375));
     }
 
     public void showFrame() {
@@ -91,9 +91,9 @@ public class JoinUI extends JFrame implements ActionListener {
                 data[i] = rowData;
             }
             JTable table = new JTable(data, columnNames);
-            table.setBounds(30, 40, 200, 150);
+            table.setBounds(30, 40, 325, 150);
             JScrollPane scrollPane = new JScrollPane(table);
-            scrollPane.setPreferredSize(new Dimension(300, 150));
+            scrollPane.setPreferredSize(new Dimension(325, 150));
             // table.setFillsViewportHeight(true);
             tablePanel.add(scrollPane);
             this.revalidate();

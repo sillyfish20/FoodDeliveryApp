@@ -28,10 +28,10 @@ public class ManagesRestaurant extends AbstractTable {
     public static Object[] getManagesRestRows(ResultSet rs) throws SQLException {
         int restaurantID = rs.getInt("RestaurantID");
         int vendorID = rs.getInt("VendorID");
-        String rName = rs.getString("Rname");
-        String unitNum = rs.getString("UnitNum");
-        String postalCode = rs.getString("PostalCode");
-        String cuisineType = rs.getString("CuisineType");
+        String rName = AbstractTable.stringTrimmer(rs.getString("Rname"));
+        String unitNum = AbstractTable.stringTrimmer(rs.getString("UnitNum"));
+        String postalCode = AbstractTable.stringTrimmer(rs.getString("PostalCode"));
+        String cuisineType = AbstractTable.stringTrimmer(rs.getString("CuisineType"));
         Date joinDate = rs.getDate("JoinDate");
         Object[] rows = {restaurantID, vendorID, rName, unitNum, postalCode, cuisineType, joinDate};
         return rows;

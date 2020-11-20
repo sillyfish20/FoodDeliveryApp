@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class AggGroupByUI extends JFrame implements ActionListener {
@@ -15,7 +16,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
     private JPanel tablePanel;
 
     public AggGroupByUI() {
-        super("Aggregation with GroupBy Query");
+        super("Aggregation with Group By Query");
         this.container = new JPanel();
         container.setPreferredSize(new Dimension(350, 375));
     }
@@ -92,7 +93,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
             ((JFrame) SwingUtilities.getRoot(container)).pack();
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null,
-                    "Something went wrong with the agg with groupby query.",
+                    "Something went wrong with the agg with group by query.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 

@@ -26,11 +26,11 @@ public class MakesOrder extends AbstractTable {
     public static Object[] getMakesOrderRows(ResultSet rs) throws SQLException {
         int orderID = rs.getInt("OrderID");
         int custID = rs.getInt("CustomerID");
-        Timestamp orderTime = rs.getTimestamp("OrderTime");
-        BigDecimal subTotal = rs.getBigDecimal("Subtotal");
         BigDecimal deliveryFee = rs.getBigDecimal("DeliveryFee");
+        BigDecimal subTotal = rs.getBigDecimal("Subtotal");
         BigDecimal tax = rs.getBigDecimal("Tax");
-        Object[] rows = {orderID, custID, orderTime, subTotal, deliveryFee, tax};
+        Timestamp orderTime = rs.getTimestamp("OrderTime");
+        Object[] rows = {orderID, custID, deliveryFee, subTotal, orderTime, tax};
         return rows;
     }
 

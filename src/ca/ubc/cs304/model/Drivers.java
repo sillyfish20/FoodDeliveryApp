@@ -19,8 +19,8 @@ public class Drivers extends AbstractTable {
 
     public static Object[] getDriversRows(ResultSet rs) throws SQLException {
         int driverID = rs.getInt("DriverID");
-        String driversLicense = rs.getString("DriversLicense");
-        String dName = rs.getString("Dname");
+        String driversLicense = AbstractTable.stringTrimmer(rs.getString("DriversLicense"));
+        String dName = AbstractTable.stringTrimmer(rs.getString("Dname"));
         int drivingRecordApproved = rs.getInt("drivingRecordApproved");
         Object[] rows = {driverID, driversLicense, dName, drivingRecordApproved};
         return rows;

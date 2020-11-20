@@ -48,7 +48,6 @@ public class FoodDeliveryApp implements LoginWindowDelegate{
 		}
 	}
 
-	// initiates the DatabaseTransaction and GUI
 	private void startAppUI() {
 		dbTransactions = new DatabaseTransactions(dbHandler);
 		databaseAppUI.showFrame();

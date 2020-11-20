@@ -71,12 +71,13 @@ public class DivisionUI extends JFrame implements ActionListener{
         tablePanel.removeAll();
         ArrayList<CustomerAnalysis> results = FoodDeliveryApp.dbTransactions.handleDivisionQuery();
         // display the data
-        String[] columnNames = {"CustomerID", "Name"};
+        String[] columnNames = {"CustomerID", "Customer Name", "Customer Email"};
         Object[][] data = new Object[results.size()][];
         for (int i = 0; i < results.size(); i++) {
             String customerIDData = String.valueOf(results.get(i).getCustomerID());
             String cNameData = String.valueOf(results.get(i).getCName());
-            String[] rowData = {customerIDData, cNameData};
+            String cEmailData = String.valueOf(results.get(i).getEmail());
+            String[] rowData = {customerIDData, cNameData, cEmailData};
             data[i] = rowData;
         }
         JTable table = new JTable(data, columnNames);

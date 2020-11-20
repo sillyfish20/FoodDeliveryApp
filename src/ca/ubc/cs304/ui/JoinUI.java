@@ -81,12 +81,13 @@ public class JoinUI extends JFrame implements ActionListener {
             BigDecimal subTotalValue = new BigDecimal(subTotalField.getText());
             ArrayList<CustomerAnalysis> results = FoodDeliveryApp.dbTransactions.handleProjJoinQuery(subTotalValue);
             // display the data
-            String[] columnNames = {"CustomerID", "Customer Name"};
+            String[] columnNames = {"CustomerID", "Customer Name", "Customer Email"};
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String customerIDData = String.valueOf(results.get(i).getCustomerID());
                 String customerNameData = String.valueOf(results.get(i).getCName());
-                String[] rowData = {customerIDData, customerNameData};
+                String cEmailData = String.valueOf(results.get(i).getEmail());
+                String[] rowData = {customerIDData, customerNameData, cEmailData};
                 data[i] = rowData;
             }
             JTable table = new JTable(data, columnNames);

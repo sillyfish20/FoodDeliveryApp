@@ -78,7 +78,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String customerIDData = String.valueOf(results.get(i).getOrderCustomerID());
-                String subTotalData = String.valueOf(results.get(i).getSubTotal().setScale(2, RoundingMode.HALF_EVEN));
+                String subTotalData = String.valueOf(results.get(i).getSubTotal());
                 String[] rowData = {customerIDData, subTotalData};
                 data[i] = rowData;
             }
@@ -93,7 +93,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
             ((JFrame) SwingUtilities.getRoot(container)).pack();
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null,
-                    "Something went wrong with the agg with groupby query.",
+                    "Something went wrong with the agg with group by query.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 

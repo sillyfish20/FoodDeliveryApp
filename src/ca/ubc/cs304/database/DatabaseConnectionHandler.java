@@ -1,6 +1,7 @@
 package ca.ubc.cs304.database;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
 import ca.ubc.cs304.model.*;
@@ -144,14 +145,15 @@ public class DatabaseConnectionHandler {
 		return tableModel;
 	}
 
-	// SELECTION: Get orderID and subtotal for orders with subtotal greater than user specified value
+	// SELECTION: Get orderID, subtotal and orderTime for orders with subtotal greater than user specified value
 	// returns a list of OrderAnalysis objects that contain the orderID and subTotal of the users that match the query
 	// the UI will handle displaying the results
 	public ArrayList<OrderAnalysis> selectionQuery(BigDecimal minSubTotal) {
 		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT OrderID, Subtotal FROM MakesOrder WHERE " +
+			PreparedStatement ps = connection.prepareStatement("SELECT OrderID, Subtotal, OrderTime FROM MakesOrder " +
+					"WHERE " +
 					"Subtotal >= ?");
 			ps.setBigDecimal(1, minSubTotal);
 			ResultSet rs = ps.executeQuery();
@@ -159,7 +161,8 @@ public class DatabaseConnectionHandler {
 			while (rs.next()) {
 
 				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("OrderID"),
-													rs.getBigDecimal("Subtotal"));
+						rs.getBigDecimal("Subtotal").setScale(2, RoundingMode.HALF_EVEN),
+						rs.getTimestamp("OrderTime"));
 				result.add(analysis);
 			}
 
@@ -188,7 +191,8 @@ public class DatabaseConnectionHandler {
 
 			while (rs.next()) {
 				CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
-						rs.getString("Cname"), rs.getString("Email"));
+						AbstractTable.stringTrimmer(rs.getString("Cname")),
+						AbstractTable.stringTrimmer(rs.getString("Email")));
 				result.add(analysis);
 			}
 
@@ -212,7 +216,8 @@ public class DatabaseConnectionHandler {
 
 			while (rs.next()) {
 				OrderAnalysis analysis = new OrderAnalysis(rs.getInt("customerID"),
-						rs.getBigDecimal("avgSubTotal"));
+						rs.getBigDecimal("avgSubTotal").setScale(2, RoundingMode.HALF_EVEN),
+						null);
 				result.add(analysis);
 			}
 

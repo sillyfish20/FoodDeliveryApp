@@ -19,7 +19,7 @@ public class SelectionUI extends JFrame implements ActionListener {
     public SelectionUI() {
         super("Selection Query");
         this.container = new JPanel();
-        container.setPreferredSize(new Dimension(350, 375));
+        container.setPreferredSize(new Dimension(375, 375));
     }
 
     public void showFrame() {
@@ -27,7 +27,7 @@ public class SelectionUI extends JFrame implements ActionListener {
         JPanel selectionPanel = new JPanel();
         // set layout
         selectionPanel.setLayout(new GridBagLayout());
-        selectionPanel.setPreferredSize(new Dimension(300, 200));
+        selectionPanel.setPreferredSize(new Dimension(350, 180));
         selectionPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
         // add labels, fields, button
         String text = "Find orderID and subtotals for orders with a subtotal greater than:";
@@ -81,18 +81,19 @@ public class SelectionUI extends JFrame implements ActionListener {
             BigDecimal subTotalValue = new BigDecimal(subTotalField.getText());
             ArrayList<OrderAnalysis> results = FoodDeliveryApp.dbTransactions.handleSelectionQuery(subTotalValue);
             // display the data
-            String[] columnNames = {"OrderID", "Subtotal"};
+            String[] columnNames = {"OrderID", "Subtotal", "Order Time"};
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String orderIDData = String.valueOf(results.get(i).getOrderCustomerID());
                 String subTotalData = String.valueOf(results.get(i).getSubTotal());
-                String[] rowData = {orderIDData, subTotalData};
+                String orderTime = String.valueOf(results.get(i).getOrderTime());
+                String[] rowData = {orderIDData, subTotalData, orderTime};
                 data[i] = rowData;
             }
             JTable table = new JTable(data, columnNames);
-            table.setBounds(30, 40, 200, 150);
+            table.setBounds(30, 40, 350, 150);
             JScrollPane scrollPane = new JScrollPane(table);
-            scrollPane.setPreferredSize(new Dimension(300, 150));
+            scrollPane.setPreferredSize(new Dimension(350, 170));
             // table.setFillsViewportHeight(true);
             tablePanel.add(scrollPane);
             this.revalidate();

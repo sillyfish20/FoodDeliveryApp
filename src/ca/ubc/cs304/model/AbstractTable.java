@@ -74,4 +74,12 @@ public abstract class AbstractTable {
         return tableRow;
     }
 
+    // Helper for trimming strings retrieved from the result set
+    public static String stringTrimmer(String str) {
+        if (str != null) {
+            str = str.trim();
+        }
+        return str;
+    }
+
 }

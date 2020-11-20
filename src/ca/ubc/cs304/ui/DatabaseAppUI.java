@@ -15,6 +15,7 @@ public class DatabaseAppUI extends JFrame {
     private JoinUI joinUI;
     private SelectionUI selectionUI;
     private DivisionUI divisionUI;
+    private HavingUI havingUI;
 
     public DatabaseAppUI() {
         super("Food Delivery App");
@@ -27,6 +28,7 @@ public class DatabaseAppUI extends JFrame {
         joinUI = new JoinUI();
         selectionUI = new SelectionUI();
         divisionUI = new DivisionUI();
+        havingUI = new HavingUI();
     }
 
     /**
@@ -93,6 +95,12 @@ public class DatabaseAppUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 divisionUI.showFrame();
+            }
+        });
+        aggHaving.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                havingUI.showFrame();
             }
         });
 

@@ -228,13 +228,13 @@ public class DatabaseConnectionHandler {
 
 		return result;
 	}
-	//TODO: AGGREGATION with HAVING: Find customers with more than 2 orders
-	// 								and an average subtotal price of more than 50$
+	// AGGREGATION with HAVING: Find customers with more than 5 orders
+	// and an average subtotal price of more than 50$
 	public ArrayList<Integer> AggWithHavingQuery() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		String queryStmt = "SELECT customerID FROM makesOrder GROUP BY customerID " +
-				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50;";
+				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50";
 
 
 		try {

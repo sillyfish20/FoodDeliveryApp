@@ -51,8 +51,8 @@ public class DatabaseTransactions {
         // TODO: call corresponding method in dbConnectionHandler
     }
 
-    public void handleAggrHavingQuery() {
-        // TODO: call corresponding method in dbConnectionHandler
+    public ArrayList<Integer> handleAggrHavingQuery() {
+        return dbHandler.AggWithHavingQuery();
     }
 
     public void handleNestedAggrGroupByQuery() {
@@ -60,7 +60,6 @@ public class DatabaseTransactions {
     }
 
     public ArrayList<CustomerAnalysis> handleDivisionQuery() {
-        // TODO: call corresponding method in dbConnectionHandler
         ArrayList<CustomerAnalysis> results = dbHandler.divisionQuery();
         System.out.println("Returning division query results");
         return results;

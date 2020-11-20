@@ -1,6 +1,7 @@
 package ca.ubc.cs304.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,9 +20,9 @@ public class Food extends AbstractTable {
 
     public static Object[] getFoodRow(ResultSet rs) throws SQLException {
         int foodID = rs.getInt("FoodID");
-        String fName = rs.getString("Fname");
-        BigDecimal price = rs.getBigDecimal("Price");
-        String type = rs.getString("Type");
+        String fName = AbstractTable.stringTrimmer(rs.getString("Fname"));
+        BigDecimal price = rs.getBigDecimal("Price").setScale(2, RoundingMode.HALF_EVEN);
+        String type = AbstractTable.stringTrimmer(rs.getString("Type"));
         Object[] rows = {foodID, fName, price, type};
         return rows;
     }

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class AggGroupByUI extends JFrame implements ActionListener {
@@ -77,7 +78,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String customerIDData = String.valueOf(results.get(i).getOrderCustomerID());
-                String subTotalData = String.valueOf(results.get(i).getSubTotal());
+                String subTotalData = String.valueOf(results.get(i).getSubTotal().setScale(2, RoundingMode.HALF_EVEN));
                 String[] rowData = {customerIDData, subTotalData};
                 data[i] = rowData;
             }

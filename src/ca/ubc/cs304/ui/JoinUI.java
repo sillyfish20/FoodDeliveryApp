@@ -2,7 +2,6 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.controller.FoodDeliveryApp;
 import ca.ubc.cs304.model.CustomerAnalysis;
-import ca.ubc.cs304.model.OrderAnalysis;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +85,7 @@ public class JoinUI extends JFrame implements ActionListener {
             Object[][] data = new Object[results.size()][];
             for (int i = 0; i < results.size(); i++) {
                 String customerIDData = String.valueOf(results.get(i).getCustomerID());
-                String customerNameData = String.valueOf(results.get(i).getcName());
+                String customerNameData = String.valueOf(results.get(i).getCName());
                 String[] rowData = {customerIDData, customerNameData};
                 data[i] = rowData;
             }

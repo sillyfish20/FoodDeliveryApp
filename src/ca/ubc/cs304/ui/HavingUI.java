@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class HavingUI extends JFrame implements ActionListener {
-    private static final int TEXT_FIELD_WIDTH = 10;
     private JPanel container;
     private JPanel tablePanel;
 
@@ -69,18 +68,22 @@ public class HavingUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println("Submit query button was clicked!");
         tablePanel.removeAll();
+        // get query results
         ArrayList<Integer> results = FoodDeliveryApp.dbTransactions.handleAggrHavingQuery();
         String[] columnNames = {"CustomerID"};
         Object[][] data = new Object[results.size()][];
+        //put query results is 2D object array format
         for (int i = 0; i < results.size(); i++) {
             int customerID = results.get(i);
             Object[] rowData = {customerID};
             data[i] = rowData;
         }
+
         JTable table = new JTable(data, columnNames);
         table.setBounds(30, 40, 200, 150);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(300, 150));
+        // display the table
         tablePanel.add(scrollPane);
         this.revalidate();
         this.repaint();

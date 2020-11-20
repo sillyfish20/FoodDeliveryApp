@@ -17,8 +17,9 @@ public class DatabaseTransactions {
     }
 
     /**
-     * This class handles input received from UI interface (insert, delete, update, display etc.)
-     * and delegates to DatabaseConnectionHandler to handle sending the SQL query
+     * This class handles delegating DML and SQL query functions
+     * to DatabaseConnectionHandler, which handles sending the actual SQL query.
+     * This is the class that the UI communicates with.
      */
 
     public void handleInsert(AbstractTable table) {
@@ -42,12 +43,10 @@ public class DatabaseTransactions {
     }
 
     public ArrayList<CustomerAnalysis> handleProjJoinQuery(BigDecimal minSubTotal) {
-        // TODO: call corresponding method in dbConnectionHandler
         return dbHandler.projectionJoinQuery(minSubTotal);
     }
 
     public ArrayList<OrderAnalysis> handleAggrGroupByQuery() {
-        // TODO: call corresponding method in dbConnectionHandler
         return dbHandler.aggWithGroupbyQuery();
     }
 
@@ -56,15 +55,15 @@ public class DatabaseTransactions {
     }
 
     public ArrayList<Integer> handleNestedAggrGroupByQuery() {
-        // TODO: call corresponding method in dbConnectionHandler
-
-        System.out.println("Returning nested aggregation with group by query results");
         return dbHandler.nestedAggrGroupByQuery();
     }
 
     public ArrayList<CustomerAnalysis> handleDivisionQuery() {
-        ArrayList<CustomerAnalysis> results = dbHandler.divisionQuery();
-        System.out.println("Returning division query results");
-        return results;
+         return dbHandler.divisionQuery();
+    }
+
+    public void closeConnection(){
+        dbHandler.close();
+        System.out.println("Connection is closed");
     }
 }

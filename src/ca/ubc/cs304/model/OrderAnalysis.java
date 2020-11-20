@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 /**
  * The intent for this class is to store the values we receive from the database
+ * after sending the Selection query
  */
 public class OrderAnalysis {
     private int customerID;

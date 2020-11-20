@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Date;
 
 public class InsertTableItemActionListener implements ItemListener, ActionListener {
     private static final int TEXT_FIELD_WIDTH = 10;
@@ -28,9 +27,8 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
     private GridBagConstraints gbc;
 
     /**
-     * Receives panel containing insert fields so we can add modify it
+     * Receives s panel containing insert fields so we can add modify it
      * based on the table value selected by the user
-     * @param panel The attribute panel
      */
     public InsertTableItemActionListener(JPanel panel) {
         this.attrPanel = panel;
@@ -60,7 +58,6 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             updateToCustomerTable();
         } else if (table.equals(DRIVERS_TABLE)) {
             updateToDriverTable();
-            // do this if have time lol
         }
 
         // repaint the panel
@@ -80,11 +77,11 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
         JLabel emailLabel =  new JLabel("Email: ");
         emailText = new JTextField(TEXT_FIELD_WIDTH);
 
-        // These 4 attributes might not be necessary
-        JLabel paymentInfoLabel = new JLabel("Payment Info: ");
-        JLabel pointsLabel = new JLabel("Points: ");
-        JLabel trialStartDateLabel = new JLabel("Trial Start Date: ");
-        JLabel membershipLevelLabel = new JLabel("Membership Level: ");
+        // These 4 attributes will not be necessary
+//        JLabel paymentInfoLabel = new JLabel("Payment Info: ");
+//        JLabel pointsLabel = new JLabel("Points: ");
+//        JLabel trialStartDateLabel = new JLabel("Trial Start Date: ");
+//        JLabel membershipLevelLabel = new JLabel("Membership Level: ");
 
         // layout components using the GridBag layout manager
         attrPanel.setPreferredSize(new Dimension(300, 150));
@@ -160,15 +157,11 @@ public class InsertTableItemActionListener implements ItemListener, ActionListen
             if (selectedTable.equalsIgnoreCase(CUSTOMER_TABLE)) {
                 Customer customer = createCustomerObj();
                 if (customer != null) {
-                    // send customer object to databaseTransactions to handle delegating insert operation
-                    System.out.println("Sending Customer object to insert query handler");
                     FoodDeliveryApp.dbTransactions.handleInsert(customer);
                 }
             } else if (selectedTable.equalsIgnoreCase(DRIVERS_TABLE)) {
                 Drivers driver = createDriverObj();
                 if (driver != null) {
-                    // send driver object to databaseTransactions to handle delegating insert operation
-                    System.out.println("Sending Customer object to insert query handler");
                     FoodDeliveryApp.dbTransactions.handleInsert(driver);
                 }
             }

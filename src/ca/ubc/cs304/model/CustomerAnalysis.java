@@ -1,9 +1,8 @@
 package ca.ubc.cs304.model;
 
-import java.math.BigDecimal;
-
 /**
  * The intent for this class is to store the values we receive from the database
+ * after sending the Projection/Join query
  */
 public class CustomerAnalysis {
     private int customerID;
@@ -18,6 +17,6 @@ public class CustomerAnalysis {
         return this.customerID;
     }
 
-    public String getcName() { return this.cName;}
+    public String getCName() { return this.cName;}
 
 }

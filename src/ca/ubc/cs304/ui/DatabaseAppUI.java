@@ -1,9 +1,15 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.controller.FoodDeliveryApp;
+
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+
+/**
+ * This class creates the main app frame containing buttons for DML and SQL queries
+ */
 
 public class DatabaseAppUI extends JFrame {
     private JPanel container;
@@ -106,12 +112,12 @@ public class DatabaseAppUI extends JFrame {
                 havingUI.showFrame();
             }
         });
-
         aggGroupBy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 aggGroupByUI.showFrame();
-
+            }
+        });
         nestedAggGroupBy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,9 +140,16 @@ public class DatabaseAppUI extends JFrame {
 
         // Display the frame
         this.add(container);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+        // closes the connection before exiting the application
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                FoodDeliveryApp.dbTransactions.closeConnection();
+            }
+        });
     }
 
 }

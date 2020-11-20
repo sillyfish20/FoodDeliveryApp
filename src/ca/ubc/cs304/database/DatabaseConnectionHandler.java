@@ -3,10 +3,7 @@ package ca.ubc.cs304.database;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import ca.ubc.cs304.model.*;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +14,7 @@ public class DatabaseConnectionHandler {
 	// Use this version of the ORACLE_URL if you are running the code off of the server
 	private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
 	// Use this version of the ORACLE_URL if you are tunneling into the undergrad servers
-	//private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
+	// private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
 	private static final String EXCEPTION_TAG = "[EXCEPTION]";
 	private static final String WARNING_TAG = "[WARNING]";
 	
@@ -42,8 +39,6 @@ public class DatabaseConnectionHandler {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
 	}
-
-	// TODO: create methods that perform the queries we want
 
 	public void insert(AbstractTable tableObject) {
 		try {
@@ -111,7 +106,7 @@ public class DatabaseConnectionHandler {
 		System.out.println("Customer is updated");
 	}
 
-	// TODO: implement display table function
+
 	public DefaultTableModel displayTable(String table) {
 		DefaultTableModel tableModel = new DefaultTableModel();
 		try {
@@ -178,7 +173,7 @@ public class DatabaseConnectionHandler {
 	}
 
 
-	//TODO: PROJECTION&JOIN: Find customers who have made orders with subtotal greater than user specified value
+	// PROJECTION & JOIN: Find customers who have made orders with subtotal greater than user specified value
 	// returns a list of CustomerAnalysis objects that contain the customerID and customerName of users that match query
 	public ArrayList<CustomerAnalysis> projectionJoinQuery(BigDecimal minSubTotal) {
 		ArrayList<CustomerAnalysis> result = new ArrayList<>();
@@ -202,10 +197,10 @@ public class DatabaseConnectionHandler {
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
-
 		return result;
 	}
-	//TODO: AGGREGATION with GROUPBY: Return customerID and their average subtotal amount
+
+	// AGGREGATION with GROUP BY: Return customerID and their average subtotal amount
 	public ArrayList<OrderAnalysis> aggWithGroupbyQuery() {
 		ArrayList<OrderAnalysis> result = new ArrayList<>();
 
@@ -229,15 +224,14 @@ public class DatabaseConnectionHandler {
 
 		return result;
 	}
+
 	// AGGREGATION with HAVING: Find customers with more than 5 orders
-	// and an average subtotal price of more than 50$
+	// and an average subtotal price of more than $50
 	public ArrayList<Integer> AggWithHavingQuery() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		String queryStmt = "SELECT customerID FROM makesOrder GROUP BY customerID " +
 				"HAVING COUNT(*) > 5 AND AVG(subtotal) > 50";
-
-
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(queryStmt);
@@ -249,24 +243,19 @@ public class DatabaseConnectionHandler {
 
 			rs.close();
 			stmt.close();
-		}
-
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
-
 		return result;
 	}
 
-	// NESTED AGGREGATION WITH GROUPBY: Find customers who made orders with the largest avg subtotal
+	// NESTED AGGREGATION WITH GROUP BY: Find customers who made orders with the largest avg subtotal
 	public ArrayList<Integer> nestedAggrGroupByQuery() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		String queryStmt = "WITH temp(avgSTotal) as (SELECT AVG(subTotal) as avgSubTotal FROM makesOrder " +
                 "GROUP BY customerID) SELECT customerID FROM makesOrder GROUP BY customerID " +
                 "Having AVG(subtotal) = (SELECT MAX(temp.avgSTotal) FROM temp)";
-		/////// IS THIS VIEWS IMPLEMENTATION OK???
-
 		try {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(queryStmt);
@@ -278,24 +267,19 @@ public class DatabaseConnectionHandler {
 
 			rs.close();
 			stmt.close();
+		} catch (SQLException e) {
+			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}
-
-		catch (SQLException e) {
-		System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-
 		return result;
 	}
 
-	//TODO: DIVISION: Find customers who have ordered from all restaurants
-
+	// DIVISION: Find customers who have ordered from all restaurants
     public ArrayList<CustomerAnalysis> divisionQuery() {
         ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
         String queryStmt = "SELECT DISTINCT c.customerID, c.cname FROM customer c WHERE NOT EXISTS " +
                 "((SELECT restaurantID FROM managesRestaurant) MINUS (SELECT r.restaurantID FROM requestsOrder r, " +
                 "makesOrder m WHERE r.orderID=m.orderID AND m.customerID=c.customerID))";
-
         try {
             Statement stmt = connection.createStatement();
 			System.out.println("Executing division query");
@@ -316,70 +300,6 @@ public class DatabaseConnectionHandler {
 
         return result;
     }
-
-
-
-
-    ////////////////////////// BRANCH EXAMPLES //////////////////////////
-	// TODO: Delete these since they are for the Branch example
-
-
-	
-	public BranchModel[] getBranchInfo() {
-		ArrayList<BranchModel> result = new ArrayList<BranchModel>();
-		
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM branch");
-		
-//    		// get info on ResultSet
-//    		ResultSetMetaData rsmd = rs.getMetaData();
-//
-//    		System.out.println(" ");
-//
-//    		// display column names;
-//    		for (int i = 0; i < rsmd.getColumnCount(); i++) {
-//    			// get column name and print it
-//    			System.out.printf("%-15s", rsmd.getColumnName(i + 1));
-//    		}
-			
-			while(rs.next()) {
-				BranchModel model = new BranchModel(rs.getString("branch_addr"),
-													rs.getString("branch_city"),
-													rs.getInt("branch_id"),
-													rs.getString("branch_name"),
-													rs.getInt("branch_phone"));
-				result.add(model);
-			}
-
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}	
-		
-		return result.toArray(new BranchModel[result.size()]);
-	}
-	
-	public void updateBranch(int id, String name) {
-		try {
-		  PreparedStatement ps = connection.prepareStatement("UPDATE branch SET branch_name = ? WHERE branch_id = ?");
-		  ps.setString(1, name);
-		  ps.setInt(2, id);
-		
-		  int rowCount = ps.executeUpdate();
-		  if (rowCount == 0) {
-		      System.out.println(WARNING_TAG + " Branch " + id + " does not exist!");
-		  }
-	
-		  connection.commit();
-		  
-		  ps.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-			rollbackConnection();
-		}	
-	}
 	
 	public boolean login(String username, String password) {
 		try {
@@ -398,58 +318,9 @@ public class DatabaseConnectionHandler {
 		}
 	}
 
-	// returns the connection
-	public Connection getConnection() {
-		return this.connection;
-	}
-
 	private void rollbackConnection() {
 		try  {
-			connection.rollback();	
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-	}
-	
-	public void databaseSetup() {
-		dropBranchTableIfExists();
-		
-		try {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("CREATE TABLE branch (branch_id integer PRIMARY KEY, " +
-					"branch_name varchar2(20) not null, branch_addr varchar2(50), branch_city varchar2(20) not null," +
-					" branch_phone integer)");
-			stmt.close();
-		} catch (SQLException e) {
-			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-		}
-		
-		BranchModel branch1 = new BranchModel("123 Charming Ave", "Vancouver", 1, "First Branch",
-				1234567);
-		insertBranch(branch1);
-		
-		BranchModel branch2 = new BranchModel("123 Coco Ave", "Vancouver", 2, "Second Branch",
-				1234568);
-		insertBranch(branch2);
-	}
-
-	private void insertBranch(BranchModel branch2) {
-	}
-
-	private void dropBranchTableIfExists() {
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-			
-			while(rs.next()) {
-				if(rs.getString(1).toLowerCase().equals("branch")) {
-					stmt.execute("DROP TABLE branch");
-					break;
-				}
-			}
-			
-			rs.close();
-			stmt.close();
+			connection.rollback();
 		} catch (SQLException e) {
 			System.out.println(EXCEPTION_TAG + " " + e.getMessage());
 		}

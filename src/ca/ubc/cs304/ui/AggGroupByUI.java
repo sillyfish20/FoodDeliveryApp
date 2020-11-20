@@ -15,7 +15,7 @@ public class AggGroupByUI extends JFrame implements ActionListener {
     private JPanel tablePanel;
 
     public AggGroupByUI() {
-        super("Aggregation with GroupBy Query");
+        super("Aggregation with Group By Query");
         this.container = new JPanel();
         container.setPreferredSize(new Dimension(350, 375));
     }

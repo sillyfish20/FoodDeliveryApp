@@ -179,7 +179,7 @@ public class DatabaseConnectionHandler {
 		ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT DISTINCT c.customerID, c.cname " +
+			PreparedStatement ps = connection.prepareStatement("SELECT DISTINCT c.customerID, c.cname, c.email " +
 					"FROM customer c, makesOrder m " +
 					"WHERE c.customerID=m.customerID AND " +
 					"m.subTotal > ?");
@@ -188,7 +188,7 @@ public class DatabaseConnectionHandler {
 
 			while (rs.next()) {
 				CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
-						rs.getString("Cname"));
+						rs.getString("Cname"), rs.getString("Email"));
 				result.add(analysis);
 			}
 
@@ -277,7 +277,7 @@ public class DatabaseConnectionHandler {
     public ArrayList<CustomerAnalysis> divisionQuery() {
         ArrayList<CustomerAnalysis> result = new ArrayList<>();
 
-        String queryStmt = "SELECT DISTINCT c.customerID, c.cname FROM customer c WHERE NOT EXISTS " +
+        String queryStmt = "SELECT DISTINCT c.customerID, c.cname, c.email FROM customer c WHERE NOT EXISTS " +
                 "((SELECT restaurantID FROM managesRestaurant) MINUS (SELECT r.restaurantID FROM requestsOrder r, " +
                 "makesOrder m WHERE r.orderID=m.orderID AND m.customerID=c.customerID))";
         try {
@@ -288,7 +288,7 @@ public class DatabaseConnectionHandler {
             while (rs.next()) {
 
                 CustomerAnalysis analysis = new CustomerAnalysis(rs.getInt("CustomerID"),
-                        rs.getString("Cname"));
+                        rs.getString("Cname"), rs.getString("Email"));
                 result.add(analysis);
             }
 
